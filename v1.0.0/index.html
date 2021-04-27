@@ -1,0 +1,2525 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Rob Boll">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+    
+      
+        <title>helmfile</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#helmfile" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="helmfile" class="md-header__button md-logo" aria-label="helmfile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            helmfile
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/roboll/helmfile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roboll/helmfile/
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="." class="md-tabs__link md-tabs__link--active">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="PATHS/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="writing-helmfile/" class="md-tabs__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="USERS/" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="helmfile" class="md-nav__button md-logo" aria-label="helmfile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    helmfile
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/roboll/helmfile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roboll/helmfile/
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Home
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    Highlights
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templating" class="md-nav__link">
+    Templating
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-environment-variables" class="md-nav__link">
+    Using environment variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Using environment variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-as-a-container" class="md-nav__link">
+    Running as a container
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-reference" class="md-nav__link">
+    CLI Reference
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sync" class="md-nav__link">
+    sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deps" class="md-nav__link">
+    deps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diff" class="md-nav__link">
+    diff
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply" class="md-nav__link">
+    apply
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroy" class="md-nav__link">
+    destroy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-deprecated" class="md-nav__link">
+    delete (DEPRECATED)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    secrets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    lint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch" class="md-nav__link">
+    fetch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paths-overview" class="md-nav__link">
+    Paths Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labels-overview" class="md-nav__link">
+    Labels Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+    <nav class="md-nav" aria-label="Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#values-files-templates" class="md-nav__link">
+    Values Files Templates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactoring-helmfileyaml-with-values-files-templates" class="md-nav__link">
+    Refactoring helmfile.yaml with values files templates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-values" class="md-nav__link">
+    Environment Values
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note-on-environmentvalues-vs-values" class="md-nav__link">
+    Note on Environment.Values vs Values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-remote-environment-values-files" class="md-nav__link">
+    Loading remote environment values files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-secrets" class="md-nav__link">
+    Environment Secrets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tillerless" class="md-nav__link">
+    Tillerless
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dag-aware-installationdeletion-ordering" class="md-nav__link">
+    DAG-aware installation/deletion ordering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separating-helmfileyaml-into-multiple-independent-files" class="md-nav__link">
+    Separating helmfile.yaml into multiple independent files
+  </a>
+  
+    <nav class="md-nav" aria-label="Separating helmfile.yaml into multiple independent files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-directory" class="md-nav__link">
+    Single directory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glob-patterns" class="md-nav__link">
+    Glob patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Glob patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selectors" class="md-nav__link">
+    selectors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-values-from-any-source" class="md-nav__link">
+    Importing values from any source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    Hooks
+  </a>
+  
+    <nav class="md-nav" aria-label="Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-hooks" class="md-nav__link">
+    Global Hooks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helmfile-kustomize" class="md-nav__link">
+    Helmfile + Kustomize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guides" class="md-nav__link">
+    Guides
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-env-files" class="md-nav__link">
+    Using .env files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-helmfile-interactively" class="md-nav__link">
+    Running Helmfile interactively
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-helmfile-without-an-internet-connection" class="md-nav__link">
+    Running Helmfile without an Internet connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experimental-features" class="md-nav__link">
+    Experimental Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-and-zsh-completion" class="md-nav__link">
+    bash and zsh completion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrations" class="md-nav__link">
+    Integrations
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argocd-integration" class="md-nav__link">
+    ArgoCD Integration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-acr-integration" class="md-nav__link">
+    Azure ACR Integration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oci-registries" class="md-nav__link">
+    OCI Registries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribution" class="md-nav__link">
+    Attribution
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Getting Started
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PATHS/" class="md-nav__link">
+        Paths Overview
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Advanced Features
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Advanced Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="writing-helmfile/" class="md-nav__link">
+        Best Practices Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote-secrets/" class="md-nav__link">
+        Secrets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="shared-configuration-across-teams/" class="md-nav__link">
+        Shared Configuration Across Teams
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="USERS/" class="md-nav__link">
+        Users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LICENSE/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CONTRIBUTING/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    Highlights
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templating" class="md-nav__link">
+    Templating
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-environment-variables" class="md-nav__link">
+    Using environment variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Using environment variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-as-a-container" class="md-nav__link">
+    Running as a container
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-reference" class="md-nav__link">
+    CLI Reference
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sync" class="md-nav__link">
+    sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deps" class="md-nav__link">
+    deps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diff" class="md-nav__link">
+    diff
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply" class="md-nav__link">
+    apply
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroy" class="md-nav__link">
+    destroy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-deprecated" class="md-nav__link">
+    delete (DEPRECATED)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    secrets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    lint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch" class="md-nav__link">
+    fetch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paths-overview" class="md-nav__link">
+    Paths Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labels-overview" class="md-nav__link">
+    Labels Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+    <nav class="md-nav" aria-label="Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#values-files-templates" class="md-nav__link">
+    Values Files Templates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactoring-helmfileyaml-with-values-files-templates" class="md-nav__link">
+    Refactoring helmfile.yaml with values files templates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-values" class="md-nav__link">
+    Environment Values
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note-on-environmentvalues-vs-values" class="md-nav__link">
+    Note on Environment.Values vs Values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-remote-environment-values-files" class="md-nav__link">
+    Loading remote environment values files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-secrets" class="md-nav__link">
+    Environment Secrets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tillerless" class="md-nav__link">
+    Tillerless
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dag-aware-installationdeletion-ordering" class="md-nav__link">
+    DAG-aware installation/deletion ordering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separating-helmfileyaml-into-multiple-independent-files" class="md-nav__link">
+    Separating helmfile.yaml into multiple independent files
+  </a>
+  
+    <nav class="md-nav" aria-label="Separating helmfile.yaml into multiple independent files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-directory" class="md-nav__link">
+    Single directory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glob-patterns" class="md-nav__link">
+    Glob patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Glob patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selectors" class="md-nav__link">
+    selectors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-values-from-any-source" class="md-nav__link">
+    Importing values from any source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    Hooks
+  </a>
+  
+    <nav class="md-nav" aria-label="Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-hooks" class="md-nav__link">
+    Global Hooks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helmfile-kustomize" class="md-nav__link">
+    Helmfile + Kustomize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guides" class="md-nav__link">
+    Guides
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-env-files" class="md-nav__link">
+    Using .env files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-helmfile-interactively" class="md-nav__link">
+    Running Helmfile interactively
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-helmfile-without-an-internet-connection" class="md-nav__link">
+    Running Helmfile without an Internet connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experimental-features" class="md-nav__link">
+    Experimental Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-and-zsh-completion" class="md-nav__link">
+    bash and zsh completion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrations" class="md-nav__link">
+    Integrations
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argocd-integration" class="md-nav__link">
+    ArgoCD Integration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-acr-integration" class="md-nav__link">
+    Azure ACR Integration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oci-registries" class="md-nav__link">
+    OCI Registries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribution" class="md-nav__link">
+    Attribution
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="helmfile">Helmfile <a href="https://circleci.com/gh/roboll/helmfile"><img alt="CircleCI" src="https://circleci.com/gh/roboll/helmfile.svg?style=svg" /></a><a class="headerlink" href="#helmfile" title="Permanent link">&para;</a></h1>
+<p>Deploy Kubernetes Helm Charts</p>
+<p><a href="https://quay.io/repository/roboll/helmfile"><img alt="Docker Repository on Quay" src="https://quay.io/repository/roboll/helmfile/status" title="Docker Repository on Quay" /></a><br />
+<a href="https://slack.sweetops.com"><img alt="Slack Community #helmfile" src="https://slack.sweetops.com/badge.svg" /></a></p>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Even though Helmfile is used in production environments <a href="USERS/">across multiple organizations</a>, it is still in its early stage of development, hence versioned 0.x.</p>
+<p>Helmfile complies to Semantic Versioning 2.0.0 in which v0.x means that there could be backward-incompatible changes for every release.</p>
+<p>Note that we will try our best to document any backward incompatibility. And in reality, helmfile had no breaking change for a year or so.</p>
+<h2 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h2>
+<p>Helmfile is a declarative spec for deploying helm charts. It lets you&hellip;</p>
+<ul>
+<li>Keep a directory of chart value files and maintain changes in version control.</li>
+<li>Apply CI/CD to configuration changes.</li>
+<li>Periodically sync to avoid skew in environments.</li>
+</ul>
+<p>To avoid upgrades for each iteration of <code>helm</code>, the <code>helmfile</code> executable delegates to <code>helm</code> - as a result, <code>helm</code> must be installed.</p>
+<h2 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h2>
+<p><strong>Declarative</strong>: Write, version-control, apply the desired state file for visibility and reproducibility.</p>
+<p><strong>Modules</strong>: Modularize common patterns of your infrastructure, distribute it via Git, S3, etc. to be reused across the entire company (See <a href="https://github.com/roboll/helmfile/pull/648">#648</a>)</p>
+<p><strong>Versatility</strong>: Manage your cluster consisting of charts, <a href="https://github.com/kubernetes-sigs/kustomize">kustomizations</a>, and directories of Kubernetes resources, turning everything to Helm releases (See <a href="https://github.com/roboll/helmfile/pull/673">#673</a>)</p>
+<p><strong>Patch</strong>: JSON/Strategic-Merge Patch Kubernetes resources before <code>helm-install</code>ing, without forking upstream charts (See <a href="https://github.com/roboll/helmfile/pull/673">#673</a>)</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p><strong>CAUTION</strong>: This documentation is for the development version of Helmfile. If you are looking for the documentation for any of releases, please switch to the corresponding release tag like <a href="https://github.com/roboll/helmfile/tree/v0.92.1">v0.92.1</a>.</p>
+<p>The default name for a helmfile is <code>helmfile.yaml</code>:</p>
+<pre><code class="language-yaml"># Chart repositories used from within this state file
+#
+# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
+# to use repositories other than the official repository or one backend by chartmuseum.
+repositories:
+# To use official &quot;stable&quot; charts a.k.a https://github.com/helm/charts/tree/master/stable
+- name: stable
+  url: https://charts.helm.sh/stable
+# To use official &quot;incubator&quot; charts a.k.a https://github.com/helm/charts/tree/master/incubator
+- name: incubator
+  url: https://charts.helm.sh/incubator
+# helm-git powered repository: You can treat any Git repository as a charts repository
+- name: polaris
+  url: git+https://github.com/reactiveops/polaris@deploy/helm?ref=master
+# Advanced configuration: You can setup basic or tls auth and optionally enable helm OCI integration
+- name: roboll
+  url: http://roboll.io/charts
+  certFile: optional_client_cert
+  keyFile: optional_client_key
+  username: optional_username
+  password: optional_password
+  oci: true
+# Advanced configuration: You can use a ca bundle to use an https repo
+# with a self-signed certificate
+- name: insecure
+   url: https://charts.my-insecure-domain.com
+   caFile: optional_ca_crt
+
+# context: kube-context # this directive is deprecated, please consider using helmDefaults.kubeContext
+
+# Path to alternative helm binary (--helm-binary)
+helmBinary: path/to/helm3
+
+# Default values to set for args along with dedicated keys that can be set by contributors, cli args take precedence over these.
+# In other words, unset values results in no flags passed to helm.
+# See the helm usage (helm SUBCOMMAND -h) for more info on default values when those flags aren't provided.
+helmDefaults:
+  tillerNamespace: tiller-namespace  #dedicated default key for tiller-namespace
+  tillerless: false                  #dedicated default key for tillerless
+  kubeContext: kube-context          #dedicated default key for kube-context (--kube-context)
+  cleanupOnFail: false               #dedicated default key for helm flag --cleanup-on-fail
+  # additional and global args passed to helm (default &quot;&quot;)
+  args:
+    - &quot;--set k=v&quot;
+  # verify the chart before upgrading (only works with packaged charts not directories) (default false)
+  verify: true
+  # wait for k8s resources via --wait. (default false)
+  wait: true
+  # if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout (default false, Implemented in Helm3.5)
+  waitForJobs: true
+  # time in seconds to wait for any individual Kubernetes operation (like Jobs for hooks, and waits on pod/pvc/svc/deployment readiness) (default 300)
+  timeout: 600
+  # performs pods restart for the resource if applicable (default false)
+  recreatePods: true
+  # forces resource update through delete/recreate if needed (default false)
+  force: false
+  # enable TLS for request to Tiller (default false)
+  tls: true
+  # path to TLS CA certificate file (default &quot;$HELM_HOME/ca.pem&quot;)
+  tlsCACert: &quot;path/to/ca.pem&quot;
+  # path to TLS certificate file (default &quot;$HELM_HOME/cert.pem&quot;)
+  tlsCert: &quot;path/to/cert.pem&quot;
+  # path to TLS key file (default &quot;$HELM_HOME/key.pem&quot;)
+  tlsKey: &quot;path/to/key.pem&quot;
+  # limit the maximum number of revisions saved per release. Use 0 for no limit. (default 10)
+  historyMax: 10
+  # when using helm 3.2+, automatically create release namespaces if they do not exist (default true)
+  createNamespace: true
+  # if used with charts museum allows to pull unstable charts for deployment, for example: if 1.2.3 and 1.2.4-dev versions exist and set to true, 1.2.4-dev will be pulled (default false)
+  devel: true
+  # When set to `true`, skips running `helm dep up` and `helm dep build` on this release's chart.
+  # Useful when the chart is broken, like seen in https://github.com/roboll/helmfile/issues/1547
+  skipDeps: false
+
+# these labels will be applied to all releases in a Helmfile. Useful in templating if you have a helmfile per environment or customer and don't want to copy the same label to each release
+commonLabels:
+  hello: world
+
+# The desired states of Helm releases.
+#
+# Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
+releases:
+  # Published chart example
+  - name: vault                            # name of this release
+    namespace: vault                       # target namespace
+    createNamespace: true                  # helm 3.2+ automatically create release namespace (default true)
+    labels:                                # Arbitrary key value pairs for filtering releases
+      foo: bar
+    chart: roboll/vault-secret-manager     # the chart being installed to create this release, referenced by `repository/chart` syntax
+    version: ~1.24.1                       # the semver of the chart. range constraint is supported
+    condition: vault.enabled               # The values lookup key for filtering releases. Corresponds to the boolean value of `vault.enabled`, where `vault` is an arbitrary value
+    missingFileHandler: Warn # set to either &quot;Error&quot; or &quot;Warn&quot;. &quot;Error&quot; instructs helmfile to fail when unable to find a values or secrets file. When &quot;Warn&quot;, it prints the file and continues.
+    # Values files used for rendering the chart
+    values:
+      # Value files passed via --values
+      - vault.yaml
+      # Inline values, passed via a temporary values file and --values, so that it doesn't suffer from type issues like --set
+      - address: https://vault.example.com
+      # Go template available in inline values and values files.
+      - image:
+          # The end result is more or less YAML. So do `quote` to prevent number-like strings from accidentally parsed into numbers!
+          # See https://github.com/roboll/helmfile/issues/608
+          tag: {{ requiredEnv &quot;IMAGE_TAG&quot; | quote }}
+          # Otherwise:
+          #   tag: &quot;{{ requiredEnv &quot;IMAGE_TAG&quot; }}&quot;
+          #   tag: !!string {{ requiredEnv &quot;IMAGE_TAG&quot; }}
+        db:
+          username: {{ requiredEnv &quot;DB_USERNAME&quot; }}
+          # value taken from environment variable. Quotes are necessary. Will throw an error if the environment variable is not set. $DB_PASSWORD needs to be set in the calling environment ex: export DB_PASSWORD='password1'
+          password: {{ requiredEnv &quot;DB_PASSWORD&quot; }}
+        proxy:
+          # Interpolate environment variable with a fixed string
+          domain: {{ requiredEnv &quot;PLATFORM_ID&quot; }}.my-domain.com
+          scheme: {{ env &quot;SCHEME&quot; | default &quot;https&quot; }}
+    # Use `values` whenever possible!
+    # `set` translates to helm's `--set key=val`, that is known to suffer from type issues like https://github.com/roboll/helmfile/issues/608
+    set:
+    # single value loaded from a local file, translates to --set-file foo.config=path/to/file
+    - name: foo.config
+      file: path/to/file
+    # set a single array value in an array, translates to --set bar[0]={1,2}
+    - name: bar[0]
+      values:
+      - 1
+      - 2
+    # set a templated value
+    - name: namespace
+      value: {{ .Namespace }}
+    # will attempt to decrypt it using helm-secrets plugin
+    secrets:
+      - vault_secret.yaml
+    # Override helmDefaults options for verify, wait, waitForJobs, timeout, recreatePods and force.
+    verify: true
+    wait: true
+    waitForJobs: true
+    timeout: 60
+    recreatePods: true
+    force: false
+    # set `false` to uninstall this release on sync.  (default true)
+    installed: true
+    # restores previous state in case of failed release (default false)
+    atomic: true
+    # when true, cleans up any new resources created during a failed release (default false)
+    cleanupOnFail: false
+    # name of the tiller namespace (default &quot;&quot;)
+    tillerNamespace: vault
+    # if true, will use the helm-tiller plugin (default false)
+    tillerless: false
+    # enable TLS for request to Tiller (default false)
+    tls: true
+    # path to TLS CA certificate file (default &quot;$HELM_HOME/ca.pem&quot;)
+    tlsCACert: &quot;path/to/ca.pem&quot;
+    # path to TLS certificate file (default &quot;$HELM_HOME/cert.pem&quot;)
+    tlsCert: &quot;path/to/cert.pem&quot;
+    # path to TLS key file (default &quot;$HELM_HOME/key.pem&quot;)
+    tlsKey: &quot;path/to/key.pem&quot;
+    # --kube-context to be passed to helm commands
+    # CAUTION: this doesn't work as expected for `tilerless: true`.
+    # See https://github.com/roboll/helmfile/issues/642
+    # (default &quot;&quot;, which means the standard kubeconfig, either ~/kubeconfig or the file pointed by $KUBECONFIG environment variable)
+    kubeContext: kube-context
+    # passes --disable-validation to helm 3 diff plugin, this requires diff plugin &gt;= 3.1.2
+    # It may be helpful to deploy charts with helm api v1 CRDS
+    # https://github.com/roboll/helmfile/pull/1373
+    disableValidation: false
+    # passes --disable-validation to helm 3 diff plugin, this requires diff plugin &gt;= 3.1.2
+    # It is useful when any release contains custom resources for CRDs that is not yet installed onto the cluster.
+    # https://github.com/roboll/helmfile/pull/1618
+    disableValidationOnInstall: false
+    # passes --disable-openapi-validation to helm 3 diff plugin, this requires diff plugin &gt;= 3.1.2
+    # It may be helpful to deploy charts with helm api v1 CRDS
+    # https://github.com/roboll/helmfile/pull/1373
+    disableOpenApiValidation: false
+    # limit the maximum number of revisions saved per release. Use 0 for no limit (default 10)
+    historyMax: 10
+    # When set to `true`, skips running `helm dep up` and `helm dep build` on this release's chart.
+    # Useful when the chart is broken, like seen in https://github.com/roboll/helmfile/issues/1547
+    skipDeps: false
+
+  # Local chart example
+  - name: grafana                            # name of this release
+    namespace: another                       # target namespace
+    chart: ../my-charts/grafana              # the chart being installed to create this release, referenced by relative path to local helmfile
+    values:
+    - &quot;../../my-values/grafana/values.yaml&quot;             # Values file (relative path to manifest)
+    - ./values/{{ requiredEnv &quot;PLATFORM_ENV&quot; }}/config.yaml # Values file taken from path with environment variable. $PLATFORM_ENV must be set in the calling environment.
+    wait: true
+
+#
+# Advanced Configuration: Nested States
+#
+helmfiles:
+- # Path to the helmfile state file being processed BEFORE releases in this state file
+  path: path/to/subhelmfile.yaml
+  # Label selector used for filtering releases in the nested state.
+  # For example, `name=prometheus` in this context is equivalent to processing the nested state like
+  #   helmfile -f path/to/subhelmfile.yaml -l name=prometheus sync
+  selectors:
+  - name=prometheus
+  # Override state values
+  values:
+  # Values files merged into the nested state's values
+  - additional.values.yaml
+  # One important aspect of using values here is that they first need to be defined in the values section
+  # of the origin helmfile, so in this example key1 needs to be in the values or environments.NAME.values of path/to/subhelmfile.yaml
+  # Inline state values merged into the nested state's values
+  - key1: val1
+- # All the nested state files under `helmfiles:` is processed in the order of definition.
+  # So it can be used for preparation for your main `releases`. An example would be creating CRDs required by `releases` in the parent state file.
+  path: path/to/mycrd.helmfile.yaml
+- # Terraform-module-like URL for importing a remote directory and use a file in it as a nested-state file
+  # The nested-state file is locally checked-out along with the remote directory containing it.
+  # Therefore all the local paths in the file are resolved relative to the file
+  path: git::https://github.com/cloudposse/helmfiles.git@releases/kiam.yaml?ref=0.40.0
+# If set to &quot;Error&quot;, return an error when a subhelmfile points to a
+# non-existent path. The default behavior is to print a warning and continue.
+missingFileHandler: Error
+
+#
+# Advanced Configuration: Environments
+#
+
+# The list of environments managed by helmfile.
+#
+# The default is `environments: {&quot;default&quot;: {}}` which implies:
+#
+# - `{{ .Environment.Name }}` evaluates to &quot;default&quot;
+# - `{{ .Values }}` being empty
+environments:
+  # The &quot;default&quot; environment is available and used when `helmfile` is run without `--environment NAME`.
+  default:
+    # Everything from the values.yaml is available via `{{ .Values.KEY }}`.
+    # Suppose `{&quot;foo&quot;: {&quot;bar&quot;: 1}}` contained in the values.yaml below,
+    # `{{ .Values.foo.bar }}` is evaluated to `1`.
+    values:
+    - environments/default/values.yaml
+    # Each entry in values can be either a file path or inline values.
+    # The below is an example of inline values, which is merged to the `.Values`
+    - myChartVer: 1.0.0-dev
+  # Any environment other than `default` is used only when `helmfile` is run with `--environment NAME`.
+  # That is, the &quot;production&quot; env below is used when and only when it is run like `helmfile --environment production sync`.
+  production:
+    values:
+    - environment/production/values.yaml
+    - myChartVer: 1.0.0
+    # disable vault release processing
+    - vault:
+        enabled: false
+    ## `secrets.yaml` is decrypted by `helm-secrets` and available via `{{ .Environment.Values.KEY }}`
+    secrets:
+    - environment/production/secrets.yaml
+    # Instructs helmfile to fail when unable to find a environment values file listed under `environments.NAME.values`.
+    #
+    # Possible values are  &quot;Error&quot;, &quot;Warn&quot;, &quot;Info&quot;, &quot;Debug&quot;. The default is &quot;Error&quot;.
+    #
+    # Use &quot;Warn&quot;, &quot;Info&quot;, or &quot;Debug&quot; if you want helmfile to not fail when a values file is missing, while just leaving
+    # a message about the missing file at the log-level.
+    missingFileHandler: Error
+    # kubeContext to use for this environment
+    kubeContext: kube-context
+
+#
+# Advanced Configuration: Layering
+#
+# Helmfile merges all the &quot;base&quot; state files and this state file before processing.
+#
+# Assuming this state file is named `helmfile.yaml`, all the files are merged in the order of:
+#   environments.yaml &lt;- defaults.yaml &lt;- templates.yaml &lt;- helmfile.yaml
+bases:
+- environments.yaml
+- defaults.yaml
+- templates.yaml
+
+#
+# Advanced Configuration: API Capabilities
+#
+# 'helmfile template' renders releases locally without querying an actual cluster,
+# and in this case `.Capabilities.APIVersions` cannot be populated.
+# When a chart queries for a specific CRD, this can lead to unexpected results.
+#
+# Configure a fixed list of api versions to pass to 'helm template' via the --api-versions flag:
+apiVersions:
+- example/v1
+
+</code></pre>
+<h2 id="templating">Templating<a class="headerlink" href="#templating" title="Permanent link">&para;</a></h2>
+<p>Helmfile uses <a href="https://godoc.org/text/template">Go templates</a> for templating your helmfile.yaml. While go ships several built-in functions, we have added all of the functions in the <a href="https://godoc.org/github.com/Masterminds/sprig">Sprig library</a>.</p>
+<p>We also added the following functions:</p>
+<ul>
+<li><code>requiredEnv</code></li>
+<li><code>exec</code></li>
+<li><code>readFile</code></li>
+<li><code>toYaml</code></li>
+<li><code>fromYaml</code></li>
+<li><code>setValueAtPath</code></li>
+<li><code>get</code> (Sprig&rsquo;s original <code>get</code> is available as <code>sprigGet</code>)</li>
+<li><code>tpl</code></li>
+<li><code>required</code></li>
+<li><code>fetchSecretValue</code></li>
+<li><code>expandSecretRefs</code></li>
+</ul>
+<p>We also added one special template function: <code>requiredEnv</code>.<br />
+The <code>requiredEnv</code> function allows you to declare a particular environment variable as required for template rendering.<br />
+If the environment variable is unset or empty, the template rendering will fail with an error message.</p>
+<h2 id="using-environment-variables">Using environment variables<a class="headerlink" href="#using-environment-variables" title="Permanent link">&para;</a></h2>
+<p>Environment variables can be used in most places for templating the helmfile. Currently this is supported for <code>name</code>, <code>namespace</code>, <code>value</code> (in set), <code>values</code> and <code>url</code> (in repositories).</p>
+<p>Examples:</p>
+<pre><code class="language-yaml">repositories:
+- name: your-private-git-repo-hosted-charts
+  url: https://{{ requiredEnv &quot;GITHUB_TOKEN&quot;}}@raw.githubusercontent.com/kmzfs/helm-repo-in-github/master/
+</code></pre>
+<pre><code class="language-yaml">releases:
+  - name: {{ requiredEnv &quot;NAME&quot; }}-vault
+    namespace: {{ requiredEnv &quot;NAME&quot; }}
+    chart: roboll/vault-secret-manager
+    values:
+      - db:
+          username: {{ requiredEnv &quot;DB_USERNAME&quot; }}
+          password: {{ requiredEnv &quot;DB_PASSWORD&quot; }}
+    set:
+      - name: proxy.domain
+        value: {{ requiredEnv &quot;PLATFORM_ID&quot; }}.my-domain.com
+      - name: proxy.scheme
+        value: {{ env &quot;SCHEME&quot; | default &quot;https&quot; }}
+</code></pre>
+<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
+<p>If you wish to treat your enviroment variables as strings always, even if they are boolean or numeric values you can use <code>{{ env "ENV_NAME" | quote }}</code> or <code>"{{ env "ENV_NAME" }}"</code>. These approaches also work with <code>requiredEnv</code>.</p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>download one of <a href="https://github.com/roboll/helmfile/releases">releases</a> or</li>
+<li><a href="#running-as-a-container">run as a container</a> or</li>
+<li>Archlinux: install via <code>pacman -S helmfile</code> or from <a href="https://aur.archlinux.org/packages/kubernetes-helmfile-bin/">AUR</a> or</li>
+<li>openSUSE: install via <code>zypper in helmfile</code> assuming you are on Tumbleweed; if you are on Leap you must add the <a href="https://download.opensuse.org/repositories/devel:/kubic/">kubic</a> repo for your distribution version once before that command, e.g. <code>zypper ar https://download.opensuse.org/repositories/devel:/kubic/openSUSE_Leap_\$releasever kubic</code>, or</li>
+<li>Windows (using <a href="https://scoop.sh/">scoop</a>): <code>scoop install helmfile</code></li>
+<li>macOS (using <a href="https://brew.sh/">homebrew</a>): <code>brew install helmfile</code></li>
+</ul>
+<h3 id="running-as-a-container">Running as a container<a class="headerlink" href="#running-as-a-container" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://quay.io/roboll/helmfile">Helmfile Docker images are available in Quay</a>. There is no <code>latest</code> tag, since the <code>0.x</code> versions can contain breaking changes, so make sure you pick the right tag. Example using <code>helmfile 0.135.0</code>:</p>
+<pre><code class="language-sh-session"># helm 2
+$ docker run --rm --net=host -v &quot;${HOME}/.kube:/root/.kube&quot; -v &quot;${HOME}/.helm:/root/.helm&quot; -v &quot;${PWD}:/wd&quot; --workdir /wd quay.io/roboll/helmfile:v0.135.0 helmfile sync
+
+# helm 3
+$ docker run --rm --net=host -v &quot;${HOME}/.kube:/root/.kube&quot; -v &quot;${HOME}/.config/helm:/root/.config/helm&quot; -v &quot;${PWD}:/wd&quot; --workdir /wd quay.io/roboll/helmfile:helm3-v0.135.0 helmfile sync
+</code></pre>
+<p>You can also use shims to make calling the binaries easier:</p>
+<pre><code class="language-sh-session"># helm 2
+$ printf '%s\n' '#!/bin/sh' 'docker run --rm --net=host -v &quot;${HOME}/.kube:/root/.kube&quot; -v &quot;${HOME}/.helm:/root/.helm&quot; -v &quot;${PWD}:/wd&quot; --workdir /wd quay.io/roboll/helmfile:v0.135.0 helmfile &quot;$@&quot;' |
+    tee helmfile
+$ chmod +x helmfile
+$ ./helmfile sync
+
+# helm 3
+$ printf '%s\n' '#!/bin/sh' 'docker run --rm --net=host -v &quot;${HOME}/.kube:/root/.kube&quot; -v &quot;${HOME}/.config/helm:/root/.config/helm&quot; -v &quot;${PWD}:/wd&quot; --workdir /wd quay.io/roboll/helmfile:helm3-v0.135.0 helmfile &quot;$@&quot;' |
+    tee helmfile
+$ chmod +x helmfile
+$ ./helmfile sync
+</code></pre>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Let&rsquo;s start with a simple <code>helmfile</code> and gradually improve it to fit your use-case!</p>
+<p>Suppose the <code>helmfile.yaml</code> representing the desired state of your helm releases looks like:</p>
+<pre><code class="language-yaml">releases:
+- name: prom-norbac-ubuntu
+  namespace: prometheus
+  chart: stable/prometheus
+  set:
+  - name: rbac.create
+    value: false
+</code></pre>
+<p>Sync your Kubernetes cluster state to the desired one by running:</p>
+<pre><code class="language-console">helmfile apply
+</code></pre>
+<p>Congratulations! You now have your first Prometheus deployment running inside your cluster.</p>
+<p>Iterate on the <code>helmfile.yaml</code> by referencing:</p>
+<ul>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#cli-reference">CLI reference</a>.</li>
+<li><a href="https://github.com/roboll/helmfile/blob/master/docs/writing-helmfile.md">Helmfile Best Practices Guide</a></li>
+</ul>
+<h2 id="cli-reference">CLI Reference<a class="headerlink" href="#cli-reference" title="Permanent link">&para;</a></h2>
+<pre><code>NAME:
+   helmfile
+
+USAGE:
+   helmfile [global options] command [command options] [arguments...]
+
+VERSION:
+   v0.138.6
+
+COMMANDS:
+   deps          update charts based on their requirements
+   repos         sync repositories from state file (helm repo add &amp;&amp; helm repo update)
+   charts        DEPRECATED: sync releases from state file (helm upgrade --install)
+   diff          diff releases from state file against env (helm diff)
+   template      template releases from state file against env (helm template)
+   write-values  write values files for releases. Similar to `helmfile template`, write values files instead of manifests.
+   lint          lint charts from state file (helm lint)
+   sync          sync all resources from state file (repos, releases and chart deps)
+   apply         apply all resources from state file only when there are changes
+   status        retrieve status of releases in state file
+   delete        DEPRECATED: delete releases from state file (helm delete)
+   destroy       deletes and then purges releases
+   test          test releases from state file (helm test)
+   build         output compiled helmfile state(s) as YAML
+   list          list releases defined in state file
+   fetch         fetch charts from state file
+   version       Show the version for Helmfile.
+   help, h       Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --helm-binary value, -b value           path to helm binary (default: &quot;helm&quot;)
+   --file helmfile.yaml, -f helmfile.yaml  load config from file or directory. defaults to helmfile.yaml or `helmfile.d`(means `helmfile.d/*.yaml`) in this preference
+   --environment value, -e value           specify the environment name. defaults to &quot;default&quot;
+   --state-values-set value                set state values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+   --state-values-file value               specify state values in a YAML file
+   --quiet, -q                             Silence output. Equivalent to log-level warn
+   --kube-context value                    Set kubectl context. Uses current context by default
+   --debug                                 Enable verbose output for Helm and set log-level to debug, this disables --quiet/-q effect
+   --no-color                              Output without color
+   --log-level value                       Set log level, default info
+   --namespace value, -n value             Set namespace. Uses the namespace set in the context by default, and is available in templates as {{ .Namespace }}
+   --selector value, -l value              Only run using the releases that match labels. Labels can take the form of foo=bar or foo!=bar.
+                                           A release must match all labels in a group in order to be used. Multiple groups can be specified at once.
+                                           --selector tier=frontend,tier!=proxy --selector tier=backend. Will match all frontend, non-proxy releases AND all backend releases.
+                                           The name of a release can be used as a label. --selector name=myrelease
+   --allow-no-matching-release             Do not exit with an error code if the provided selector has no matching releases.
+   --interactive, -i                       Request confirmation before attempting to modify clusters
+   --help, -h                              show help
+   --version, -v                           print the version
+</code></pre>
+<h3 id="sync">sync<a class="headerlink" href="#sync" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile sync</code> sub-command sync your cluster state as described in your <code>helmfile</code>. The default helmfile is <code>helmfile.yaml</code>, but any YAML file can be passed by specifying a <code>--file path/to/your/yaml/file</code> flag.</p>
+<p>Under the covers, Helmfile executes <code>helm upgrade --install</code> for each <code>release</code> declared in the manifest, by optionally decrypting <a href="#secrets">secrets</a> to be consumed as helm chart values. It also updates specified chart repositories and updates the<br />
+dependencies of any referenced local charts.</p>
+<p>For Helm 2.9+ you can use a username and password to authenticate to a remote repository.</p>
+<h3 id="deps">deps<a class="headerlink" href="#deps" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile deps</code> sub-command locks your helmfile state and local charts dependencies.</p>
+<p>It basically runs <code>helm dependency update</code> on your helmfile state file and all the referenced local charts, so that you get a &ldquo;lock&rdquo; file per each helmfile state or local chart.</p>
+<p>All the other <code>helmfile</code> sub-commands like <code>sync</code> use chart versions recorded in the lock files, so that e.g. untested chart versions won&rsquo;t suddenly get deployed to the production environment.</p>
+<p>For example, the lock file for a helmfile state file named <code>helmfile.1.yaml</code> will be <code>helmfile.1.lock</code>. The lock file for a local chart would be <code>requirements.lock</code>, which is the same as <code>helm</code>.</p>
+<p>It is recommended to version-control all the lock files, so that they can be used in the production deployment pipeline for extra reproducibility.</p>
+<p>To bring in chart updates systematically, it would also be a good idea to run <code>helmfile deps</code> regularly, test it, and then update the lock files in the version-control system.</p>
+<h3 id="diff">diff<a class="headerlink" href="#diff" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile diff</code> sub-command executes the <a href="https://github.com/databus23/helm-diff">helm-diff</a> plugin across all of<br />
+the charts/releases defined in the manifest.</p>
+<p>To supply the diff functionality Helmfile needs the <a href="https://github.com/databus23/helm-diff">helm-diff</a> plugin v2.9.0+1 or greater installed. For Helm 2.3+<br />
+you should be able to simply execute <code>helm plugin install https://github.com/databus23/helm-diff</code>. For more details<br />
+please look at their <a href="https://github.com/databus23/helm-diff#helm-diff-plugin">documentation</a>.</p>
+<h3 id="apply">apply<a class="headerlink" href="#apply" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile apply</code> sub-command begins by executing <code>diff</code>. If <code>diff</code> finds that there is any changes, <code>sync</code> is executed. Adding <code>--interactive</code> instructs Helmfile to request your confirmation before <code>sync</code>.</p>
+<p>An expected use-case of <code>apply</code> is to schedule it to run periodically, so that you can auto-fix skews between the desired and the current state of your apps running on Kubernetes clusters.</p>
+<h3 id="destroy">destroy<a class="headerlink" href="#destroy" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile destroy</code> sub-command uninstalls and purges all the releases defined in the manifests.</p>
+<p><code>helmfile --interactive destroy</code> instructs Helmfile to request your confirmation before actually deleting releases.</p>
+<p><code>destroy</code> basically runs <code>helm uninstall --purge</code> on all the targeted releases. If you don&rsquo;t want purging, use <code>helmfile delete</code> instead.</p>
+<h3 id="delete-deprecated">delete (DEPRECATED)<a class="headerlink" href="#delete-deprecated" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile delete</code> sub-command deletes all the releases defined in the manifests.</p>
+<p><code>helmfile --interactive delete</code> instructs Helmfile to request your confirmation before actually deleting releases.</p>
+<p>Note that <code>delete</code> doesn&rsquo;t purge releases. So <code>helmfile delete &amp;&amp; helmfile sync</code> results in sync failed due to that releases names are not deleted but preserved for future references. If you really want to remove releases for reuse, add <code>--purge</code> flag to run it like <code>helmfile delete --purge</code>.</p>
+<h3 id="secrets">secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h3>
+<p>The <code>secrets</code> parameter in a <code>helmfile.yaml</code> causes the <a href="https://github.com/jkroepke/helm-secrets">helm-secrets</a> plugin to be executed to decrypt the file.</p>
+<p>To supply the secret functionality Helmfile needs the <code>helm secrets</code> plugin installed. For Helm 2.3+<br />
+you should be able to simply execute <code>helm plugin install https://github.com/jkroepke/helm-secrets</code>.</p>
+<h3 id="test">test<a class="headerlink" href="#test" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile test</code> sub-command runs a <code>helm test</code> against specified releases in the manifest, default to all</p>
+<p>Use <code>--cleanup</code> to delete pods upon completion.</p>
+<h3 id="lint">lint<a class="headerlink" href="#lint" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile lint</code> sub-command runs a <code>helm lint</code> across all of the charts/releases defined in the manifest. Non local charts will be fetched into a temporary folder which will be deleted once the task is completed.</p>
+<h3 id="fetch">fetch<a class="headerlink" href="#fetch" title="Permanent link">&para;</a></h3>
+<p>The <code>helmfile fetch</code> sub-command downloads or copies local charts to a local directory for debug purpose. The local directory<br />
+must be specified with <code>--output-dir</code>.</p>
+<h2 id="paths-overview">Paths Overview<a class="headerlink" href="#paths-overview" title="Permanent link">&para;</a></h2>
+<p>Using manifest files in conjunction with command line argument can be a bit confusing.</p>
+<p>A few rules to clear up this ambiguity:</p>
+<ul>
+<li>Absolute paths are always resolved as absolute paths</li>
+<li>Relative paths referenced <em>in</em> the Helmfile manifest itself are relative to that manifest</li>
+<li>Relative paths referenced on the command line are relative to the current working directory the user is in</li>
+</ul>
+<p>For additional context, take a look at <a href="PATHS/">paths examples</a>.</p>
+<h2 id="labels-overview">Labels Overview<a class="headerlink" href="#labels-overview" title="Permanent link">&para;</a></h2>
+<p>A selector can be used to only target a subset of releases when running Helmfile. This is useful for large helmfiles with releases that are logically grouped together.</p>
+<p>Labels are simple key value pairs that are an optional field of the release spec. When selecting by label, the search can be inverted. <code>tier!=backend</code> would match all releases that do NOT have the <code>tier: backend</code> label. <code>tier=fronted</code> would only match releases with the <code>tier: frontend</code> label.</p>
+<p>Multiple labels can be specified using <code>,</code> as a separator. A release must match all selectors in order to be selected for the final helm command.</p>
+<p>The <code>selector</code> parameter can be specified multiple times. Each parameter is resolved independently so a release that matches any parameter will be used.</p>
+<p><code>--selector tier=frontend --selector tier=backend</code> will select all the charts.</p>
+<p>In addition to user supplied labels, the name, the namespace, and the chart are available to be used as selectors.  The chart will just be the chart name excluding the repository (Example <code>stable/filebeat</code> would be selected using <code>--selector chart=filebeat</code>).</p>
+<p><code>commonLabels</code> can be used when you want to apply the same label to all releases and use <a href="##Templates">templating</a> based on that.<br />
+For instance, you install a number of charts on every customer but need to provide different values file per customer.</p>
+<p>templates/common.yaml:</p>
+<pre><code class="language-yaml">templates:
+  nginx: &amp;nginx
+    name: nginx
+    chart: stable/nginx-ingress
+    values:
+    - ../values/common/{{ .Release.Name }}.yaml
+    - ../values/{{ .Release.Labels.customer }}/{{ .Release.Name }}.yaml
+
+  cert-manager: &amp;cert-manager
+    name: cert-manager
+    chart: jetstack/cert-manager
+    values:
+    - ../values/common/{{ .Release.Name }}.yaml
+    - ../values/{{ .Release.Labels.customer }}/{{ .Release.Name }}.yaml
+</code></pre>
+<p>helmfile.yaml:</p>
+<pre><code class="language-yaml">{{ readFile &quot;templates/common.yaml&quot; }}
+
+commonLabels:
+  customer: company
+
+releases:
+- &lt;&lt;: *nginx
+- &lt;&lt;: *cert-manager
+</code></pre>
+<h2 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">&para;</a></h2>
+<p>You can use go&rsquo;s text/template expressions in <code>helmfile.yaml</code> and <code>values.yaml.gotmpl</code> (templated helm values files). <code>values.yaml</code> references will be used verbatim. In other words:</p>
+<ul>
+<li>for value files ending with <code>.gotmpl</code>, template expressions will be rendered</li>
+<li>for plain value files (ending in <code>.yaml</code>), content will be used as-is</li>
+</ul>
+<p>In addition to built-in ones, the following custom template functions are available:</p>
+<ul>
+<li><code>readFile</code> reads the specified local file and generate a golang string</li>
+<li><code>fromYaml</code> reads a golang string and generates a map</li>
+<li><code>setValueAtPath PATH NEW_VALUE</code> traverses a golang map, replaces the value at the PATH with NEW_VALUE</li>
+<li><code>toYaml</code> marshals a map into a string</li>
+<li><code>get</code> returns the value of the specified key if present in the <code>.Values</code> object, otherwise will return the default value defined in the function</li>
+</ul>
+<h3 id="values-files-templates">Values Files Templates<a class="headerlink" href="#values-files-templates" title="Permanent link">&para;</a></h3>
+<p>You can reference a template of values file in your <code>helmfile.yaml</code> like below:</p>
+<pre><code class="language-yaml">releases:
+- name: myapp
+  chart: mychart
+  values:
+  - values.yaml.gotmpl
+</code></pre>
+<p>Every values file whose file extension is <code>.gotmpl</code> is considered as a template file.</p>
+<p>Suppose <code>values.yaml.gotmpl</code> was something like:</p>
+<pre><code class="language-yaml">{{ readFile &quot;values.yaml&quot; | fromYaml | setValueAtPath &quot;foo.bar&quot; &quot;FOO_BAR&quot; | toYaml }}
+</code></pre>
+<p>And <code>values.yaml</code> was:</p>
+<pre><code class="language-yaml">foo:
+  bar: &quot;&quot;
+</code></pre>
+<p>The resulting, temporary values.yaml that is generated from <code>values.yaml.gotmpl</code> would become:</p>
+<pre><code class="language-yaml">foo:
+  # Notice `setValueAtPath &quot;foo.bar&quot; &quot;FOO_BAR&quot;` in the template above
+  bar: FOO_BAR
+</code></pre>
+<h2 id="refactoring-helmfileyaml-with-values-files-templates">Refactoring <code>helmfile.yaml</code> with values files templates<a class="headerlink" href="#refactoring-helmfileyaml-with-values-files-templates" title="Permanent link">&para;</a></h2>
+<p>One of expected use-cases of values files templates is to keep <code>helmfile.yaml</code> small and concise.</p>
+<p>See the example <code>helmfile.yaml</code> below:</p>
+<pre><code class="language-yaml">releases:
+  - name: {{ requiredEnv &quot;NAME&quot; }}-vault
+    namespace: {{ requiredEnv &quot;NAME&quot; }}
+    chart: roboll/vault-secret-manager
+    values:
+      - db:
+          username: {{ requiredEnv &quot;DB_USERNAME&quot; }}
+          password: {{ requiredEnv &quot;DB_PASSWORD&quot; }}
+    set:
+      - name: proxy.domain
+        value: {{ requiredEnv &quot;PLATFORM_ID&quot; }}.my-domain.com
+      - name: proxy.scheme
+        value: {{ env &quot;SCHEME&quot; | default &quot;https&quot; }}
+</code></pre>
+<p>The <code>values</code> and <code>set</code> sections of the config file can be separated out into a template:</p>
+<p><code>helmfile.yaml</code>:</p>
+<pre><code class="language-yaml">releases:
+  - name: {{ requiredEnv &quot;NAME&quot; }}-vault
+    namespace: {{ requiredEnv &quot;NAME&quot; }}
+    chart: roboll/vault-secret-manager
+    values:
+    - values.yaml.gotmpl
+</code></pre>
+<p><code>values.yaml.gotmpl</code>:</p>
+<pre><code class="language-yaml">db:
+  username: {{ requiredEnv &quot;DB_USERNAME&quot; }}
+  password: {{ requiredEnv &quot;DB_PASSWORD&quot; }}
+proxy:
+  domain: {{ requiredEnv &quot;PLATFORM_ID&quot; }}.my-domain.com
+  scheme: {{ env &quot;SCHEME&quot; | default &quot;https&quot; }}
+</code></pre>
+<h2 id="environment">Environment<a class="headerlink" href="#environment" title="Permanent link">&para;</a></h2>
+<p>When you want to customize the contents of <code>helmfile.yaml</code> or <code>values.yaml</code> files per environment, use this feature.</p>
+<p>You can define as many environments as you want under <code>environments</code> in <code>helmfile.yaml</code>.</p>
+<p>The environment name defaults to <code>default</code>, that is, <code>helmfile sync</code> implies the <code>default</code> environment.<br />
+The selected environment name can be referenced from <code>helmfile.yaml</code> and <code>values.yaml.gotmpl</code> by <code>{{ .Environment.Name }}</code>.</p>
+<p>If you want to specify a non-default environment, provide a <code>--environment NAME</code> flag to <code>helmfile</code> like <code>helmfile --environment production sync</code>.</p>
+<p>The below example shows how to define a production-only release:</p>
+<pre><code class="language-yaml">environments:
+  default:
+  production:
+
+releases:
+- name: newrelic-agent
+  installed: {{ eq .Environment.Name &quot;production&quot; | toYaml }}
+  # snip
+- name: myapp
+  # snip
+</code></pre>
+<h2 id="environment-values">Environment Values<a class="headerlink" href="#environment-values" title="Permanent link">&para;</a></h2>
+<p>Environment Values allows you to inject a set of values specific to the selected environment, into values.yaml templates.<br />
+Use it to inject common values from the environment to multiple values files, to make your configuration DRY.</p>
+<p>Suppose you have three files <code>helmfile.yaml</code>, <code>production.yaml</code> and <code>values.yaml.gotmpl</code>:</p>
+<p><code>helmfile.yaml</code></p>
+<pre><code class="language-yaml">environments:
+  production:
+    values:
+    - production.yaml
+
+releases:
+- name: myapp
+  values:
+  - values.yaml.gotmpl
+</code></pre>
+<p><code>production.yaml</code></p>
+<pre><code class="language-yaml">domain: prod.example.com
+releaseName: prod
+</code></pre>
+<p><code>values.yaml.gotmpl</code></p>
+<pre><code class="language-yaml">domain: {{ .Values | get &quot;domain&quot; &quot;dev.example.com&quot; }}
+</code></pre>
+<p><code>helmfile sync</code> installs <code>myapp</code> with the value <code>domain=dev.example.com</code>,<br />
+whereas <code>helmfile --environment production sync</code> installs the app with the value <code>domain=prod.example.com</code>.</p>
+<p>For even more flexibility, you can now use values declared in the <code>environments:</code> section in other parts of your helmfiles:</p>
+<p>consider:<br />
+<code>default.yaml</code></p>
+<pre><code class="language-yaml">domain: dev.example.com
+releaseName: dev
+</code></pre>
+<pre><code class="language-yaml">environments:
+  default:
+    values:
+    - default.yaml
+  production:
+    values:
+    - production.yaml #  bare .yaml file, content will be used verbatim
+    - other.yaml.gotmpl  #  template directives with potential side-effects like `exec` and `readFile` will be honoured
+
+releases:
+- name: myapp-{{ .Values.releaseName }} # release name will be one of `dev` or `prod` depending on selected environment
+  values:
+  - values.yaml.gotmpl
+- name: production-specific-release
+  # this release would be installed only if selected environment is `production`
+  installed: {{ eq .Values.releaseName &quot;prod&quot; | toYaml }}
+  ...
+</code></pre>
+<h3 id="note-on-environmentvalues-vs-values">Note on Environment.Values vs Values<a class="headerlink" href="#note-on-environmentvalues-vs-values" title="Permanent link">&para;</a></h3>
+<p>The <code>{{ .Values.foo }}</code> syntax is the recommended way of using environment values.</p>
+<p>Prior to this <a href="https://github.com/roboll/helmfile/pull/647">pull request</a>, environment values were made available through the <code>{{ .Environment.Values.foo }}</code> syntax.<br />
+This is still working but is <strong>deprecated</strong> and the new <code>{{ .Values.foo }}</code> syntax should be used instead.</p>
+<p>You can read more infos about the feature proposal <a href="https://github.com/roboll/helmfile/issues/640">here</a>.</p>
+<h3 id="loading-remote-environment-values-files">Loading remote environment values files<a class="headerlink" href="#loading-remote-environment-values-files" title="Permanent link">&para;</a></h3>
+<p>Since #1296 and Helmfile v0.118.8, you can use <code>go-getter</code>-style URLs to refer to remote values files:</p>
+<pre><code class="language-yaml">environments:
+  cluster-azure-us-west:
+    values:
+      - git::https://git.company.org/helmfiles/global/azure.yaml?ref=master
+      - git::https://git.company.org/helmfiles/global/us-west.yaml?ref=master
+  cluster-gcp-europe-west:
+    values:
+      - git::https://git.company.org/helmfiles/global/gcp.yaml?ref=master
+      - git::https://git.company.org/helmfiles/global/europe-west.yaml?ref=master
+
+releases:
+  - ...
+</code></pre>
+<p>This is particularly useful when you co-locate helmfiles within your project repo but want to reuse the definitions in a global repo.</p>
+<h2 id="environment-secrets">Environment Secrets<a class="headerlink" href="#environment-secrets" title="Permanent link">&para;</a></h2>
+<p>Environment Secrets (not to be confused with Kubernetes Secrets) are encrypted versions of <code>Environment Values</code>.<br />
+You can list any number of <code>secrets.yaml</code> files created using <code>helm secrets</code> or <code>sops</code>, so that<br />
+Helmfile could automatically decrypt and merge the secrets into the environment values.</p>
+<p>First you must have the <a href="https://github.com/jkroepke/helm-secrets">helm-secrets</a> plugin installed along with a<br />
+<code>.sops.yaml</code> file to configure the method of encryption (this can be in the same directory as your helmfile or<br />
+in the sub-directory containing your secrets files).</p>
+<p>Then suppose you have a a foo.bar secret defined in <code>environments/production/secrets.yaml</code>:</p>
+<pre><code class="language-yaml">foo.bar: &quot;mysupersecretstring&quot;
+</code></pre>
+<p>You can then encrypt it with <code>helm secrets enc environments/production/secrets.yaml</code></p>
+<p>Then reference that encrypted file in <code>helmfile.yaml</code>:</p>
+<pre><code class="language-yaml">environments:
+  production:
+    secrets:
+    - environments/production/secrets.yaml
+
+releases:
+- name: myapp
+  chart: mychart
+  values:
+  - values.yaml.gotmpl
+</code></pre>
+<p>Then the environment secret <code>foo.bar</code> can be referenced by the below template expression in your <code>values.yaml.gotmpl</code>:</p>
+<pre><code class="language-yaml">{{ .Values.foo.bar }}
+</code></pre>
+<h2 id="tillerless">Tillerless<a class="headerlink" href="#tillerless" title="Permanent link">&para;</a></h2>
+<p>With the <a href="https://github.com/rimusz/helm-tiller">helm-tiller</a> plugin installed, you can work without tiller installed.</p>
+<p>To enable this mode, you need to define <code>tillerless: true</code> and set the <code>tillerNamespace</code> in the <code>helmDefaults</code> section<br />
+or in the <code>releases</code> entries.</p>
+<h2 id="dag-aware-installationdeletion-ordering">DAG-aware installation/deletion ordering<a class="headerlink" href="#dag-aware-installationdeletion-ordering" title="Permanent link">&para;</a></h2>
+<p><code>needs</code> controls the order of the installation/deletion of the release:</p>
+<pre><code class="language-yaml">releases:
+- name: somerelease
+  needs:
+  - [TILLER_NAMESPACE/][NAMESPACE/]anotherelease
+</code></pre>
+<p>Be aware that you have to specify the namespace name if you configured one for the release(s).</p>
+<p>All the releases listed under <code>needs</code> are installed before(or deleted after) the release itself.</p>
+<p>For the following example, <code>helmfile [sync|apply]</code> installs releases in this order:</p>
+<ol>
+<li>logging</li>
+<li>servicemesh</li>
+<li>myapp1 and myapp2</li>
+</ol>
+<pre><code class="language-yaml">  - name: myapp1
+    chart: charts/myapp
+    needs:
+    - servicemesh
+    - logging
+  - name: myapp2
+    chart: charts/myapp
+    needs:
+    - servicemesh
+    - logging
+  - name: servicemesh
+    chart: charts/istio
+    needs:
+    - logging
+  - name: logging
+    chart: charts/fluentd
+</code></pre>
+<p>Note that all the releases in a same group is installed concurrently. That is, myapp1 and myapp2 are installed concurrently.</p>
+<p>On <code>helmfile [delete|destroy]</code>, deletions happen in the reverse order.</p>
+<p>That is, <code>myapp1</code> and <code>myapp2</code> are deleted first, then <code>servicemesh</code>, and finally <code>logging</code>.</p>
+<h2 id="separating-helmfileyaml-into-multiple-independent-files">Separating helmfile.yaml into multiple independent files<a class="headerlink" href="#separating-helmfileyaml-into-multiple-independent-files" title="Permanent link">&para;</a></h2>
+<p>Once your <code>helmfile.yaml</code> got to contain too many releases,<br />
+split it into multiple yaml files.</p>
+<p>Recommended granularity of helmfile.yaml files is &ldquo;per microservice&rdquo; or &ldquo;per team&rdquo;.<br />
+And there are two ways to organize your files.</p>
+<ul>
+<li>Single directory</li>
+<li>Glob patterns</li>
+</ul>
+<h3 id="single-directory">Single directory<a class="headerlink" href="#single-directory" title="Permanent link">&para;</a></h3>
+<p><code>helmfile -f path/to/directory</code> loads and runs all the yaml files under the specified directory, each file as an independent helmfile.yaml.<br />
+The default helmfile directory is <code>helmfile.d</code>, that is,<br />
+in case helmfile is unable to locate <code>helmfile.yaml</code>, it tries to locate <code>helmfile.d/*.yaml</code>.</p>
+<p>All the yaml files under the specified directory are processed in the alphabetical order. For example, you can use a <code>&lt;two digit number&gt;-&lt;microservice&gt;.yaml</code> naming convention to control the sync order.</p>
+<ul>
+<li><code>helmfile.d</code>/</li>
+<li><code>00-database.yaml</code></li>
+<li><code>00-backend.yaml</code></li>
+<li><code>01-frontend.yaml</code></li>
+</ul>
+<h3 id="glob-patterns">Glob patterns<a class="headerlink" href="#glob-patterns" title="Permanent link">&para;</a></h3>
+<p>In case you want more control over how multiple <code>helmfile.yaml</code> files are organized, use <code>helmfiles:</code> configuration key in the <code>helmfile.yaml</code>:</p>
+<p>Suppose you have multiple microservices organized in a Git repository that looks like:</p>
+<ul>
+<li><code>myteam/</code> (sometimes it is equivalent to a k8s ns, that is <code>kube-system</code> for <code>clusterops</code> team)</li>
+<li><code>apps/</code><ul>
+<li><code>filebeat/</code></li>
+<li><code>helmfile.yaml</code> (no <code>charts/</code> exists, because it depends on the stable/filebeat chart hosted on the official helm charts repository)</li>
+<li><code>README.md</code> (each app managed by my team has a dedicated README maintained by the owners of the app)</li>
+<li><code>metricbeat/</code></li>
+<li><code>helmfile.yaml</code></li>
+<li><code>README.md</code></li>
+<li><code>elastalert-operator/</code></li>
+<li><code>helmfile.yaml</code></li>
+<li><code>README.md</code></li>
+<li><code>charts/</code><ul>
+<li><code>elastalert-operator/</code></li>
+<li><code>&lt;the content of the local helm chart&gt;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>The benefits of this structure is that you can run <code>git diff</code> to locate in which directory=microservice a git commit has changes.<br />
+It allows your CI system to run a workflow for the changed microservice only.</p>
+<p>A downside of this is that you don&rsquo;t have an obvious way to sync all microservices at once. That is, you have to run:</p>
+<pre><code class="language-bash">for d in apps/*; do helmfile -f $d diff; if [ $? -eq 2 ]; then helmfile -f $d sync; fi; done
+</code></pre>
+<p>At this point, you&rsquo;ll start writing a <code>Makefile</code> under <code>myteam/</code> so that <code>make sync-all</code> will do the job.</p>
+<p>It does work, but you can rely on the Helmfile feature instead.</p>
+<p>Put <code>myteam/helmfile.yaml</code> that looks like:</p>
+<pre><code class="language-yaml">helmfiles:
+- apps/*/helmfile.yaml
+</code></pre>
+<p>So that you can get rid of the <code>Makefile</code> and the bash snippet.<br />
+Just run <code>helmfile sync</code> inside <code>myteam/</code>, and you are done.</p>
+<p>All the files are sorted alphabetically per group = array item inside <code>helmfiles:</code>, so that you have granular control over ordering, too.</p>
+<h4 id="selectors">selectors<a class="headerlink" href="#selectors" title="Permanent link">&para;</a></h4>
+<p>When composing helmfiles you can use selectors from the command line as well as explicit selectors inside the parent helmfile to filter the releases to be used.</p>
+<pre><code class="language-yaml">helmfiles:
+- apps/*/helmfile.yaml
+- path: apps/a-helmfile.yaml
+  selectors:          # list of selectors
+  - name=prometheus
+  - tier=frontend
+- path: apps/b-helmfile.yaml # no selector, so all releases are used
+selectors: []
+- path: apps/c-helmfile.yaml # parent selector to be used or cli selector for the initial helmfile
+  selectorsInherited: true
+</code></pre>
+<ul>
+<li>When a selector is specified, only this selector applies and the parents or CLI selectors are ignored.</li>
+<li>When not selector is specified there are 2 modes for the selector inheritance because we would like to change the current inheritance behavior (see <a href="https://github.com/roboll/helmfile/issues/344">issue #344</a>  ).</li>
+<li>Legacy mode, sub-helmfiles without selectors inherit selectors from their parent helmfile. The initial helmfiles inherit from the command line selectors.</li>
+<li>explicit mode, sub-helmfile without selectors do not inherit from their parent or the CLI selector. If you want them to inherit from their parent selector then use <code>selectorsInherited: true</code>. To enable this explicit mode you need to set the following environment variable <code>HELMFILE_EXPERIMENTAL=explicit-selector-inheritance</code> (see <a href="#experimental-features">experimental</a>).</li>
+<li>Using <code>selector: []</code> will select all releases regardless of the parent selector or cli for the initial helmfile</li>
+<li>using <code>selectorsInherited: true</code> make the sub-helmfile selects releases with the parent selector or the cli for the initial helmfile. You cannot specify an explicit selector while using <code>selectorsInherited: true</code></li>
+</ul>
+<h2 id="importing-values-from-any-source">Importing values from any source<a class="headerlink" href="#importing-values-from-any-source" title="Permanent link">&para;</a></h2>
+<p>The <code>exec</code> template function that is available in <code>values.yaml.gotmpl</code> is useful for importing values from any source<br />
+that is accessible by running a command:</p>
+<p>A usual usage of <code>exec</code> would look like this:</p>
+<pre><code class="language-yaml">mysetting: |
+{{ exec &quot;./mycmd&quot; (list &quot;arg1&quot; &quot;arg2&quot; &quot;--flag1&quot;) | indent 2 }}
+</code></pre>
+<p>Or even with a pipeline:</p>
+<pre><code class="language-yaml">mysetting: |
+{{ yourinput | exec &quot;./mycmd-consume-stdin&quot; (list &quot;arg1&quot; &quot;arg2&quot;) | indent 2 }}
+</code></pre>
+<p>The possibility is endless. Try importing values from your golang app, bash script, jsonnet, or anything!</p>
+<h2 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
+<p>A Helmfile hook is a per-release extension point that is composed of:</p>
+<ul>
+<li><code>events</code></li>
+<li><code>command</code></li>
+<li><code>args</code></li>
+<li><code>showlogs</code></li>
+</ul>
+<p>Helmfile triggers various <code>events</code> while it is running.<br />
+Once <code>events</code> are triggered, associated <code>hooks</code> are executed, by running the <code>command</code> with <code>args</code>. The standard output of the <code>command</code> will be displayed if <code>showlogs</code> is set and it&rsquo;s value is <code>true</code>.</p>
+<p>Currently supported <code>events</code> are:</p>
+<ul>
+<li><code>prepare</code></li>
+<li><code>presync</code></li>
+<li><code>preuninstall</code></li>
+<li><code>postuninstall</code></li>
+<li><code>postsync</code></li>
+<li><code>cleanup</code></li>
+</ul>
+<p>Hooks associated to <code>prepare</code> events are triggered after each release in your helmfile is loaded from YAML, before execution.<br />
+<code>prepare</code> hooks are triggered on the release as long as it is not excluded by the helmfile selector(e.g. <code>helmfile -l key=value</code>).</p>
+<p>Hooks associated to <code>presync</code> events are triggered before each release is applied to the remote cluster.<br />
+This is the ideal event to execute any commands that may mutate the cluster state as it will not be run for read-only operations like <code>lint</code>, <code>diff</code> or <code>template</code>.</p>
+<p><code>preuninstall</code> hooks are triggered immediately before a release is uninstalled as part of <code>helmfile apply</code>, <code>helmfile sync</code>, <code>helmfile delete</code>, and <code>helmfile destroy</code>.</p>
+<p><code>postuninstall</code> hooks are triggered immediately after successful uninstall of a release while running <code>helmfile apply</code>, <code>helmfile sync</code>, <code>helmfile delete</code>, <code>helmfile destroy</code>.</p>
+<p><code>postsync</code> hooks are triggered after each release is synced(installed, updated, or uninstalled) to/from the cluster, regardless of the sync was successful or not.<br />
+This is the ideal place to execute any commands that may mutate the cluster state as it will not be run for read-only operations like <code>lint</code>, <code>diff</code> or <code>template</code>.</p>
+<p><code>cleanup</code> hooks are triggered after each release is processed.<br />
+This is the counterpart to <code>prepare</code>, as any release on which <code>prepare</code> has been triggered gets <code>cleanup</code> triggered as well.</p>
+<p>The following is an example hook that just prints the contextual information provided to hook:</p>
+<pre><code class="language-yaml">releases:
+- name: myapp
+  chart: mychart
+  # *snip*
+  hooks:
+  - events: [&quot;prepare&quot;, &quot;cleanup&quot;]
+    showlogs: true
+    command: &quot;echo&quot;
+    args: [&quot;{{`{{.Environment.Name}}`}}&quot;, &quot;{{`{{.Release.Name}}`}}&quot;, &quot;{{`{{.HelmfileCommand}}`}}\
+&quot;]
+</code></pre>
+<p>Let&rsquo;s say you ran <code>helmfile --environment prod sync</code>, the above hook results in executing:</p>
+<pre><code>echo {{Environment.Name}} {{.Release.Name}} {{.HelmfileCommand}}
+</code></pre>
+<p>Whereas the template expressions are executed thus the command becomes:</p>
+<pre><code>echo prod myapp sync
+</code></pre>
+<p>Now, replace <code>echo</code> with any command you like, and rewrite <code>args</code> that actually conforms to the command, so that you can integrate any command that does:</p>
+<ul>
+<li>templating</li>
+<li>linting</li>
+<li>testing</li>
+</ul>
+<p>For templating, imagine that you created a hook that generates a helm chart on-the-fly by running an external tool like ksonnet, kustomize, or your own template engine.<br />
+It will allow you to write your helm releases with any language you like, while still leveraging goodies provided by helm.</p>
+<h3 id="global-hooks">Global Hooks<a class="headerlink" href="#global-hooks" title="Permanent link">&para;</a></h3>
+<p>In contrast to the per release hooks mentioned above these are run only once at the very beginning and end of the execution of a helmfile command and only the <code>prepare</code> and <code>cleanup</code> hooks are available respectively.</p>
+<p>They use the same syntax as per release hooks, but at the top level of your helmfile:</p>
+<pre><code class="language-yaml">hooks:
+- events: [&quot;prepare&quot;, &quot;cleanup&quot;]
+  showlogs: true
+  command: &quot;echo&quot;
+  args: [&quot;{{`{{.Environment.Name}}`}}&quot;, &quot;{{`{{.HelmfileCommand}}`}}\
+&quot;]
+</code></pre>
+<h3 id="helmfile-kustomize">Helmfile + Kustomize<a class="headerlink" href="#helmfile-kustomize" title="Permanent link">&para;</a></h3>
+<p>Do you prefer <code>kustomize</code> to write and organize your Kubernetes apps, but still want to leverage helm&rsquo;s useful features<br />
+like rollback, history, and so on? This section is for you!</p>
+<p>The combination of <code>hooks</code> and <a href="https://gist.github.com/mumoshu/f9d0bd98e0eb77f636f79fc2fb130690">helmify-kustomize</a><br />
+enables you to integrate <a href="https://github.com/kubernetes-sigs/kustomize">kustomize</a> into Helmfile.</p>
+<p>That is, you can use <code>kustomize</code> to build a local helm chart from a kustomize overlay.</p>
+<p>Let&rsquo;s assume you have a kustomize project named <code>foo-kustomize</code> like this:</p>
+<pre><code>foo-kustomize/
+├── base
+│   ├── configMap.yaml
+│   ├── deployment.yaml
+│   ├── kustomization.yaml
+│   └── service.yaml
+└── overlays
+    ├── default
+    │   ├── kustomization.yaml
+    │   └── map.yaml
+    ├── production
+    │   ├── deployment.yaml
+    │   └── kustomization.yaml
+    └── staging
+        ├── kustomization.yaml
+        └── map.yaml
+
+5 directories, 10 files
+</code></pre>
+<p>Write <code>helmfile.yaml</code>:</p>
+<pre><code class="language-yaml">- name: kustomize
+  chart: ./foo
+  hooks:
+  - events: [&quot;prepare&quot;, &quot;cleanup&quot;]
+    command: &quot;../helmify&quot;
+    args: [&quot;{{`{{if eq .Event.Name \&quot;prepare\&quot;}}build{{else}}clean{{end}}`}}&quot;, &quot;{{`{{.Release.Ch\
+art}}`}}&quot;, &quot;{{`{{.Environment.Name}}`}}&quot;]
+</code></pre>
+<p>Run <code>helmfile --environment staging sync</code> and see it results in helmfile running <code>kustomize build foo-kustomize/overlays/staging &gt; foo/templates/all.yaml</code>.</p>
+<p>Voilà! You can mix helm releases that are backed by remote charts, local charts, and even kustomize overlays.</p>
+<h2 id="guides">Guides<a class="headerlink" href="#guides" title="Permanent link">&para;</a></h2>
+<p>Use the <a href="/docs/writing-helmfile.md">Helmfile Best Practices Guide</a> to write advanced helmfiles that feature:</p>
+<ul>
+<li>Default values</li>
+<li>Layering</li>
+</ul>
+<p>We also have dedicated documentation on the following topics which might interest you:</p>
+<ul>
+<li><a href="/docs/shared-configuration-across-teams.md">Shared Configurations Across Teams</a></li>
+</ul>
+<p>Or join our friendly slack community in the <a href="https://slack.sweetops.com"><code>#helmfile</code></a> channel to ask questions and get help. Check out our <a href="https://archive.sweetops.com/helmfile/">slack archive</a> for good examples of how others are using it.</p>
+<h2 id="using-env-files">Using .env files<a class="headerlink" href="#using-env-files" title="Permanent link">&para;</a></h2>
+<p>Helmfile itself doesn&rsquo;t have an ability to load .env files. But you can write some bash script to achieve the goal:</p>
+<pre><code class="language-console">set -a; . .env; set +a; helmfile sync
+</code></pre>
+<p>Please see #203 for more context.</p>
+<h2 id="running-helmfile-interactively">Running Helmfile interactively<a class="headerlink" href="#running-helmfile-interactively" title="Permanent link">&para;</a></h2>
+<p><code>helmfile --interactive [apply|destroy]</code> requests confirmation from you before actually modifying your cluster.</p>
+<p>Use it when you&rsquo;re running <code>helmfile</code> manually on your local machine or a kind of secure administrative hosts.</p>
+<p>For your local use-case, aliasing it like <code>alias hi='helmfile --interactive'</code> would be convenient.</p>
+<h2 id="running-helmfile-without-an-internet-connection">Running Helmfile without an Internet connection<a class="headerlink" href="#running-helmfile-without-an-internet-connection" title="Permanent link">&para;</a></h2>
+<p>Once you download all required charts into your machine, you can run <code>helmfile charts</code> to deploy your apps.<br />
+It basically run only <code>helm upgrade --install</code> with your already-downloaded charts, hence no Internet connection is required.<br />
+See #155 for more information on this topic.</p>
+<h2 id="experimental-features">Experimental Features<a class="headerlink" href="#experimental-features" title="Permanent link">&para;</a></h2>
+<p>Some experimental features may be available for testing in perspective of being (or not) included in a future release.<br />
+Those features are set using the environment variable <code>HELMFILE_EXPERIMENTAL</code>. Here is the current experimental feature :
+* <code>explicit-selector-inheritance</code> : remove today implicit cli selectors inheritance for composed helmfiles, see <a href="#selectors">composition selector</a></p>
+<p>If you want to enable all experimental features set the env var to <code>HELMFILE_EXPERIMENTAL=true</code></p>
+<h2 id="bash-and-zsh-completion"><code>bash</code> and <code>zsh</code> completion<a class="headerlink" href="#bash-and-zsh-completion" title="Permanent link">&para;</a></h2>
+<p>Copy <code>autocomplete/helmfile_bash_autocomplete</code> or <code>autocomplete/helmfile_zsh_autocomplete</code> (depending on your shell of choice) to directory where you keep other shell completion scripts to make sure it is sourced.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>For more examples, see the <a href="https://github.com/roboll/helmfile/blob/master/examples/README.md">examples/README.md</a> or the <a href="https://github.com/cloudposse/helmfiles/tree/master/releases"><code>helmfile</code></a> distribution by <a href="https://github.com/cloudposse/">Cloud Posse</a>.</p>
+<h2 id="integrations">Integrations<a class="headerlink" href="#integrations" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/renovatebot/renovate">renovate</a> automates chart version updates. See <a href="https://github.com/renovatebot/renovate/pull/5257">this PR for more information</a>.</li>
+<li>For updating container image tags and git tags embedded within helmfile.yaml and values, you can use <a href="https://docs.renovatebot.com/modules/manager/regex/">renovate&rsquo;s regexManager</a>. Please see <a href="https://github.com/renovatebot/renovate/issues/6130#issuecomment-624061289">this comment in the renovate repository</a> for more information.</li>
+<li><a href="#argocd-integration">ArgoCD Integration</a></li>
+<li><a href="#azure-acr-integration">Azure ACR Integration</a></li>
+</ul>
+<h3 id="argocd-integration">ArgoCD Integration<a class="headerlink" href="#argocd-integration" title="Permanent link">&para;</a></h3>
+<p>Use <a href="https://argoproj.github.io/argo-cd/">ArgoCD</a> with <code>helmfile template</code> for GitOps.</p>
+<p>ArgoCD has support for kustomize/manifests/helm chart by itself. Why bother with Helmfile?</p>
+<p>The reasons may vary:</p>
+<ol>
+<li>You do want to manage applications with ArgoCD, while letting Helmfile manage infrastructure-related components like Calico/Cilium/WeaveNet, Linkerd/Istio, and ArgoCD itself.<br />
+  - This way, any application deployed by ArgoCD has access to all the infrastructure.<br />
+  - Of course, you can use ArgoCD&rsquo;s <a href="https://argoproj.github.io/argo-cd/user-guide/sync-waves/">Sync Waves and Phases</a> for ordering the infrastructure and application installations. But it may be difficult to separate the concern between the infrastructure and apps and annotate K8s resources consistently when you have different teams for managing infra and apps.</li>
+<li>You want to review the exact K8s manifests being applied on pull-request time, before ArgoCD syncs.<br />
+  - This is often better than using a kind of <code>HelmRelease</code> custom resources that obfuscates exactly what manifests are being applied, which makes reviewing harder.</li>
+<li>Use Helmfile as the single-pane of glass for all the K8s resources deployed to your cluster(s).<br />
+  - Helmfile can reduce repetition in K8s manifests across ArgoCD application</li>
+</ol>
+<p>For 1, you run <code>helmfile apply</code> on CI to deploy ArgoCD and the infrastructure components.</p>
+<blockquote>
+<p>helmfile config for this phase often reside within the same directory as your Terraform project. So connecting the two with <a href="https://github.com/mumoshu/terraform-provider-helmfile">terraform-provider-helmfile</a> may be helpful</p>
+</blockquote>
+<p>For 2, another app-centric CI or bot should render/commit manifests by running:</p>
+<pre><code>helmfile template --output-dir-template $(pwd)/gitops//{{.Release.Name}}
+cd gitops
+git add .
+git commit -m 'some message'
+git push origin $BRANCH
+</code></pre>
+<blockquote>
+<p>Note that <code>$(pwd)</code> is necessary when <code>hemlfile.yaml</code> has one or more sub-helmfiles in nested directories,<br />
+because setting a relative file path in <code>--output-dir</code> or <code>--output-dir-template</code> results in each sub-helmfile render<br />
+to the directory relative to the specified path.</p>
+</blockquote>
+<p>so that they can be deployed by Argo CD as usual.</p>
+<p>The CI or bot can optionally submit a PR to be review by human, running:</p>
+<pre><code>hub pull-request -b main -l gitops -m 'some description'
+</code></pre>
+<p>Recommendations:</p>
+<ul>
+<li>Do create ArgoCD <code>Application</code> custom resource per Helm/Helmfile release, each point to respective sub-directory generated by <code>helmfile template --output-dir-template</code></li>
+<li>If you don&rsquo;t directly push it to the main Git branch and instead go through a pull-request, do lint rendered manifests on your CI, so that you can catch easy mistakes earlier/before ArgoCD finally deploys it</li>
+<li>See <a href="https://github.com/argoproj/argo-cd/issues/2143#issuecomment-570478329">this ArgoCD issue</a> for why you may want this, and see <a href="https://github.com/roboll/helmfile/pull/1357">this helmfile issue</a> for how <code>--output-dir-template</code> works.</li>
+</ul>
+<h3 id="azure-acr-integration">Azure ACR Integration<a class="headerlink" href="#azure-acr-integration" title="Permanent link">&para;</a></h3>
+<p>Azure offers helm repository <a href="https://docs.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos">support for Azure Container Registry</a> as a preview feature.</p>
+<p>To use this you must first <code>az login</code> and then <code>az acr helm repo add -n &lt;MyRegistry&gt;</code>. This will extract a token for the given ACR and configure <code>helm</code> to use it, e.g. <code>helm repo update</code> should work straight away.</p>
+<p>To use <code>helmfile</code> with ACR, on the other hand, you must either include a username/password in the repository definition for the ACR in your <code>helmfile.yaml</code> or use the <code>--skip-deps</code> switch, e.g. <code>helmfile template --skip-deps</code>.</p>
+<p>An ACR repository definition in <code>helmfile.yaml</code> looks like this:</p>
+<pre><code class="language-yaml">repositories:
+  - name: &lt;MyRegistry&gt;
+    url: https://&lt;MyRegistry&gt;.azurecr.io/helm/v1/repo
+</code></pre>
+<h2 id="oci-registries">OCI Registries<a class="headerlink" href="#oci-registries" title="Permanent link">&para;</a></h2>
+<p>In order to use OCI chart registries firstly they must be marked in the repository list as OCI enabled, e.g.</p>
+<pre><code class="language-yaml">repositories:
+  - name: myOCIRegistry
+    url: myregistry.azurecr.io
+    oci: true
+</code></pre>
+<p>It is important not to include a scheme for the URL as helm requires that these are not present for OCI registries</p>
+<p>Secondly the credentials for the OCI registry can either be specified within <code>helmfile.yaml</code> similar to</p>
+<pre><code class="language-yaml">repositories:
+  - name: myOCIRegistry
+    url: myregistry.azurecr.io
+    oci: true
+    username: spongebob
+    password: squarepants
+</code></pre>
+<p>or for CI scenarios these can be sourced from the environment with the format <code>&lt;registryName&gt;_USERNAME</code> and <code>&lt;registryName_PASSWORD&gt;</code>, e.g.</p>
+<pre><code class="language-shell">export MYOCIREGISTRY_USERNAME=spongebob
+export MYOCIREGISTRY_PASSWORD=squarepants
+</code></pre>
+<h2 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h2>
+<p>We use:</p>
+<ul>
+<li><a href="https://github.com/pnikosis/semtag">semtag</a> for automated semver tagging. I greatly appreciate the author(pnikosis)&rsquo;s effort on creating it and their kindness to share it!</li>
+</ul>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 27, 2021</span>
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+      
+        <a href="PATHS/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Paths Overview
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+    
+  </body>
+</html>

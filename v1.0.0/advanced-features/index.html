@@ -1,0 +1,976 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Rob Boll">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+    
+      
+        <title>Advanced Features - helmfile</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#advanced-features" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="helmfile" class="md-header__button md-logo" aria-label="helmfile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            helmfile
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Advanced Features
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/roboll/helmfile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roboll/helmfile/
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../PATHS/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../writing-helmfile/" class="md-tabs__link md-tabs__link--active">
+        Advanced Features
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../USERS/" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="helmfile" class="md-nav__button md-logo" aria-label="helmfile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    helmfile
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/roboll/helmfile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roboll/helmfile/
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Getting Started
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PATHS/" class="md-nav__link">
+        Paths Overview
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Advanced Features
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Advanced Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../writing-helmfile/" class="md-nav__link">
+        Best Practices Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Advanced Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Advanced Features
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-features" class="md-nav__link">
+    Advanced Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-configuration-parameters-into-helmfile" class="md-nav__link">
+    Import Configuration Parameters into Helmfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-kustomizations-with-helmfile" class="md-nav__link">
+    Deploy Kustomizations with Helmfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adhoc-kustomization-of-helm-charts" class="md-nav__link">
+    Adhoc Kustomization of Helm charts
+  </a>
+  
+    <nav class="md-nav" aria-label="Adhoc Kustomization of Helm charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategicmergepatches" class="md-nav__link">
+    strategicMergePatches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformers" class="md-nav__link">
+    transformers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-dependencies-without-forking-the-chart" class="md-nav__link">
+    Adding dependencies without forking the chart
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote-secrets/" class="md-nav__link">
+        Secrets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shared-configuration-across-teams/" class="md-nav__link">
+        Shared Configuration Across Teams
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERS/" class="md-nav__link">
+        Users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LICENSE/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-features" class="md-nav__link">
+    Advanced Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-configuration-parameters-into-helmfile" class="md-nav__link">
+    Import Configuration Parameters into Helmfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-kustomizations-with-helmfile" class="md-nav__link">
+    Deploy Kustomizations with Helmfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adhoc-kustomization-of-helm-charts" class="md-nav__link">
+    Adhoc Kustomization of Helm charts
+  </a>
+  
+    <nav class="md-nav" aria-label="Adhoc Kustomization of Helm charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategicmergepatches" class="md-nav__link">
+    strategicMergePatches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformers" class="md-nav__link">
+    transformers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-dependencies-without-forking-the-chart" class="md-nav__link">
+    Adding dependencies without forking the chart
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Advanced Features</h1>
+                
+                <h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#import-configuration-parameters-into-helmfile">Import Configuration Parameters into Helmfile</a></li>
+<li><a href="#deploy-kustomizations-with-helmfile">Deploy Kustomization with Helmfile</a></li>
+<li><a href="#adhoc-kustomization-of-helm-charts">Adhoc Kustomization of Helm Charts</a></li>
+<li><a href="#adding-dependencies-without-forking-the-chart">Adding dependencies without forking the chart</a></li>
+</ul>
+<h3 id="import-configuration-parameters-into-helmfile">Import Configuration Parameters into Helmfile<a class="headerlink" href="#import-configuration-parameters-into-helmfile" title="Permanent link">&para;</a></h3>
+<p>Helmfile integrates <a href="">vals</a> to import configuration parameters from following backends:</p>
+<ul>
+<li>AWS SSM Parameter Store</li>
+<li>AWS SecretsManager</li>
+<li>Vault</li>
+<li>SOPS</li>
+</ul>
+<p>See <a href="https://github.com/variantdev/vals#suported-backends">Vals &ldquo;Suported Backends&rdquo;</a> for the full list of available backends.</p>
+<p>This feature was implemented in https://github.com/roboll/helmfile/pull/906.<br />
+If you&rsquo;re curious how it&rsquo;s designed and how it works, please consult the pull request.</p>
+<h3 id="deploy-kustomizations-with-helmfile">Deploy Kustomizations with Helmfile<a class="headerlink" href="#deploy-kustomizations-with-helmfile" title="Permanent link">&para;</a></h3>
+<p>You can deploy <a href="https://github.com/kubernetes-sigs/kustomize">kustomize</a> &ldquo;kustomization&rdquo;s with Helmfile.</p>
+<p>Most of Kustomize operations that is usually done with <code>kustomize edit</code> can be done declaratively via Helm values.yaml files.</p>
+<p>Under the hood, Helmfile transforms the kustomization into a local chart in a temporary directory so that it can be <code>helm upgrade --install</code>ed.</p>
+<p>The transformation is done by generating (1)a temporary kustomization from various options and (2)temporary chart from the temporary kustomization.</p>
+<p>An example pseudo code for the transformation logic can be written as:</p>
+<pre><code class="language-console">$ TMPCHART=/tmp/sometmpdir
+$ mkdir -p ${TMPCHART}/templates
+$ somehow_generate_chart_yaml ${TMPCHART}/Chart.yaml
+
+$ TMPKUSTOMIZATION=/tmp/sometmpdir2
+$ somehow_generate_temp_kustomization_yaml ${TMPKUSTOMIZATION}/kustomization.yaml
+$ kustomize build ${TMPKUSTOMIZATION}/kustomization.yaml &gt; ${TMPCHART}/templates/all.yaml
+</code></pre>
+<p>Let&rsquo;s say you have a <code>helmfile.yaml</code> that looks like the below:</p>
+<pre><code class="language-yaml">releases:
+- name: myapp
+  chart: mykustomization
+  values:
+  - values.yaml
+</code></pre>
+<p>Helmfile firstly generates a temporary <code>kustomization.yaml</code> that looks like:</p>
+<pre><code class="language-yaml">bases:
+- $(ABS_PATH_TO_HELMFILE_YAML}/mykustomization
+</code></pre>
+<p>Followed by the below steps:</p>
+<ul>
+<li>Running <code>kustomize edit set image $IMAGE</code> for every <code>$IMAGE</code> generated from your values.yaml</li>
+<li>Running <code>kustomize edit set nameprefix $NAMEPREFIX</code> with the nameprefix specified in your values.yaml</li>
+<li>Running <code>kustomize edit set namesuffix $NAMESUFFIX</code> with the namesuffix specified in your values.yaml</li>
+<li>Running <code>kustomize edit set namespace $NS</code> with the namespace specified in your values.yaml</li>
+</ul>
+<p>A <code>values.yaml</code> file for kustomization would look like the below:</p>
+<pre><code class="language-yaml">images:
+# kustomize edit set image mysql=eu.gcr.io/my-project/mysql@canary
+- name: mysql
+  newName: eu.gcr.io/my-project/mysql
+  newTag: canary
+# kustomize edit set image myapp=my-registry/my-app@sha256:24a0c4b4a4c0eb97a1aabb8e29f18e917d05abfe1b7a7c07857230879ce7d3d3
+- name: myapp
+  digest: sha256:24a0c4b4a4c0eb97a1aabb8e29f18e917d05abfe1b7a7c07857230879ce7d3d3
+  newName: my-registry/my-app
+
+# kustomize edit set nameprefix foo-
+namePrefix: foo-
+
+# kustomize edit set namesuffix -bar
+nameSuffix: -bar
+
+# kustomize edit set namespace myapp
+namespace: myapp
+</code></pre>
+<p>At this point, Helmfile can generate a complete kustomization from the base kustomization you specified in <code>releases[].chart</code> of your helmfile.yaml and <code>values.yaml</code>,<br />
+which can be included in the temporary chart.</p>
+<p>After all, Helmfile just installs the temporary chart like standard charts, which allows you to manage everything with Helmfile regardless of each app is declared using a Helm chart or a kustomization.</p>
+<p>Please also see <a href="https://github.com/roboll/helmfile/tree/master/test/advanced/helmfile.yaml">test/advanced/helmfile.yaml</a> for an example of kustomization support and more.</p>
+<h3 id="adhoc-kustomization-of-helm-charts">Adhoc Kustomization of Helm charts<a class="headerlink" href="#adhoc-kustomization-of-helm-charts" title="Permanent link">&para;</a></h3>
+<p>With Helmfile&rsquo;s integration with Helmfile, not only deploying Kustomization as a Helm chart, you can kustomize charts before installation.</p>
+<p>Currently, Helmfile allows you to set the following fields for kustomizing the chart:</p>
+<ul>
+<li><a href="#strategicmergepatches"><code>releases[].strategicMergePatches</code></a></li>
+<li><code>releases[].jsonPatches</code></li>
+<li><a href="#transformers"><code>releases[].transformers</code></a></li>
+</ul>
+<h4 id="strategicmergepatches"><code>strategicMergePatches</code><a class="headerlink" href="#strategicmergepatches" title="Permanent link">&para;</a></h4>
+<p>You can add/update any Kubernetes resource field rendered from a Helm chart by specifying <code>releases[].strategicMergePatches</code>:</p>
+<pre><code>repositories:
+- name: incubator
+  url: https://kubernetes-charts-incubator.storage.googleapis.com
+
+releases:
+- name: raw1
+  chart: incubator/raw
+  values:
+  - resources:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: raw1
+        namespace: default
+      data:
+        foo: FOO
+  strategicMergePatches:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: raw1
+        namespace: default
+      data:
+        bar: BAR
+</code></pre>
+<p>Running <code>helmfile template</code> on the above example results in a ConfigMap called <code>raw</code> whose <code>data</code> is:</p>
+<pre><code class="language-yaml">foo: FOO
+bar: BAR
+</code></pre>
+<p>Please note that the second <code>data</code> field <code>bar</code> is coming from the strategic-merge patch defined in the above helmfile.yaml.</p>
+<p>There&rsquo;s also <code>releases[].jsonPatches</code> that works similarly to <code>strategicMergePatches</code> but has additional capability to remove fields.</p>
+<p>Please also see <a href="https://github.com/roboll/helmfile/tree/master/test/advanced/helmfile.yaml">test/advanced/helmfile.yaml</a> for an example of patching support and more.</p>
+<h4 id="transformers"><code>transformers</code><a class="headerlink" href="#transformers" title="Permanent link">&para;</a></h4>
+<p>You can set <code>transformers</code> to apply <a href="https://github.com/kubernetes-sigs/kustomize/blob/master/examples/configureBuiltinPlugin.md#configuring-the-builtin-plugins-instead">Kustomize&rsquo;s transformers</a>.</p>
+<p>Each item can be a path to a YAML or go template file, or an embedded transformer declaration as a YAML hash.</p>
+<p>It&rsquo;s often used to add common labels and annotations to your resources.</p>
+<p>In the below example. we add common annotations and labels every resource rendered from the <code>aws-load-balancer-controller</code> chart:</p>
+<pre><code class="language-yaml">releases:
+- name: &quot;aws-load-balancer-controller&quot;
+  namespace: &quot;kube-system&quot;
+  forceNamespace: &quot;kube-system&quot;
+  chart: &quot;center/aws/aws-load-balancer-controller&quot;
+  transformers:
+  - apiVersion: builtin
+    kind: AnnotationsTransformer
+    metadata:
+      name: notImportantHere
+    annotations:
+      area: 51
+      greeting: take me to your leader
+    fieldSpecs:
+    - path: metadata/annotations
+      create: true
+  - apiVersion: builtin
+    kind: LabelTransformer
+    metadata:
+      name: notImportantHere
+    labels:
+      foo: bar
+    fieldSpecs:
+    - path: metadata/labels
+      create: true
+</code></pre>
+<p>As explained earlier, <code>transformers</code> can be not only a list of embedded transformers, but also YAML or go template files, or a mix of those three kinds.</p>
+<pre><code class="language-yaml">transformers:
+# Embedded transformer
+- apiVersion: builtin
+  kind: AnnotationsTransformer
+  metadata:
+    name: notImportantHere
+  annotations:
+    area: 51
+    greeting: take me to your leader
+  fieldSpecs:
+  - path: metadata/annotations
+    create: true
+# YAML file
+- path/to/transformer.yaml
+# Go template
+# The same set of template parameters as release values files templates is available.
+- path/to/transformer.yaml.gotmpl
+</code></pre>
+<p>Please see https://github.com/kubernetes-sigs/kustomize/blob/master/examples/configureBuiltinPlugin.md#configuring-the-builtin-plugins-instead for more information on how to declare transformers.</p>
+<h3 id="adding-dependencies-without-forking-the-chart">Adding dependencies without forking the chart<a class="headerlink" href="#adding-dependencies-without-forking-the-chart" title="Permanent link">&para;</a></h3>
+<p>With Helmfile, you can add chart dependencies to a Helm chart without forking it.</p>
+<p>An example <code>helmfile.yaml</code> that adds a <code>stable/envoy</code> dependency to the release <code>foo</code> looks like the below:</p>
+<pre><code>repositories:
+- name: stable
+  url: https://charts.helm.sh/stable
+
+releases:
+- name: foo
+  chart: ./path/to/foo
+  dependencies:
+  - chart: stable/envoy
+    version: 1.5
+</code></pre>
+<p>When Helmfile encounters <code>releases[].dependencies</code>, it creates a another temporary chart from <code>./path/to/foo</code> and adds the following <code>dependencies</code> to the <code>Chart.yaml</code>, so that you don&rsquo;t need to fork the chart.</p>
+<pre><code>dependencies:
+- name: envoy
+  repo: https://charts.helm.sh/stable
+  condition: envoy.enabled
+</code></pre>
+<p>A Helm chart can have two or more dependencies for the same chart with different <code>alias</code>es. To give your dependency an <code>alias</code>, defien it like you would do in a standard <code>Chart.yaml</code>:</p>
+<pre><code>repositories:
+- name: stable
+  url: https://charts.helm.sh/stable
+
+releases:
+- name: foo
+  chart: ./path/to/foo
+  dependencies:
+  - chart: stable/envoy
+    version: 1.5
+    alias: bar
+  - chart: stable/envoy
+    version: 1.5
+    alias: baz
+</code></pre>
+<p>which will tweaks the temporary chart&rsquo;s <code>Chart.yaml</code> to have:</p>
+<pre><code>dependencies:
+- alias: bar
+  name: envoy
+  repo: https://charts.helm.sh/stable
+  condition: bar.enabled
+- alias: baz
+  name: envoy
+  repo: https://charts.helm.sh/stable
+  condition: baz.enabled
+</code></pre>
+<p>Please see #649 for more context around this feature.</p>
+<p>After the support for adhoc dependency to local chart (#1765),<br />
+you can even write local file paths relative to <code>helmfile.yaml</code> in <code>chart</code>:</p>
+<pre><code>releases:
+- name: foo
+  chart: ./path/to/foo
+  dependencies:
+  - chart: ./path/to/bar
+</code></pre>
+<p>Internally, Helmfile creates another temporary chart from the local chart <code>./path/to/foo</code>, and modifies the chart&rsquo;s <code>Chart.yaml</code> dependencies to look like:</p>
+<pre><code>dependencies:
+- alias: bar
+  name: bar
+  repo: file:///abs/path/to/bar
+  condition: bar.enabled
+</code></pre>
+<p>Please read https://github.com/roboll/helmfile/issues/1762#issuecomment-816341251 for more details.</p>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2021</span>
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../writing-helmfile/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Best Practices Guide
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../remote-secrets/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Secrets
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+    
+  </body>
+</html>
