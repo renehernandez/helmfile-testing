@@ -1,0 +1,1007 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Rob Boll">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+    
+      
+        <title>Best Practices Guide - helmfile</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-helmfile-best-practices-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="helmfile" class="md-header__button md-logo" aria-label="helmfile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            helmfile
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Best Practices Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/roboll/helmfile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roboll/helmfile/
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../PATHS/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Advanced Features
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../USERS/" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="helmfile" class="md-nav__button md-logo" aria-label="helmfile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    helmfile
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/roboll/helmfile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roboll/helmfile/
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Getting Started
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PATHS/" class="md-nav__link">
+        Paths Overview
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Advanced Features
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Advanced Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Best Practices Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Best Practices Guide
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helmfile-values-vs-helm-values" class="md-nav__link">
+    Helmfile .Values vs Helm .Values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missing-keys-and-default-values" class="md-nav__link">
+    Missing keys and Default values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-template-conventional-directory-structure" class="md-nav__link">
+    Release Template / Conventional Directory Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layering-release-values" class="md-nav__link">
+    Layering Release Values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layering-state-files" class="md-nav__link">
+    Layering State Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merging-arrays-in-layers" class="md-nav__link">
+    Merging Arrays in Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layering-state-template-files" class="md-nav__link">
+    Layering State Template Files
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote-secrets/" class="md-nav__link">
+        Secrets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shared-configuration-across-teams/" class="md-nav__link">
+        Shared Configuration Across Teams
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERS/" class="md-nav__link">
+        Users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LICENSE/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helmfile-values-vs-helm-values" class="md-nav__link">
+    Helmfile .Values vs Helm .Values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missing-keys-and-default-values" class="md-nav__link">
+    Missing keys and Default values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-template-conventional-directory-structure" class="md-nav__link">
+    Release Template / Conventional Directory Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layering-release-values" class="md-nav__link">
+    Layering Release Values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layering-state-files" class="md-nav__link">
+    Layering State Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merging-arrays-in-layers" class="md-nav__link">
+    Merging Arrays in Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layering-state-template-files" class="md-nav__link">
+    Layering State Template Files
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="the-helmfile-best-practices-guide">The Helmfile Best Practices Guide<a class="headerlink" href="#the-helmfile-best-practices-guide" title="Permanent link">&para;</a></h1>
+<p>This guide covers the Helmfile’s considered patterns for writing advanced helmfiles. It focuses on how helmfile should be structured and executed.</p>
+<h2 id="helmfile-values-vs-helm-values">Helmfile .Values vs Helm .Values<a class="headerlink" href="#helmfile-values-vs-helm-values" title="Permanent link">&para;</a></h2>
+<p>Templating engine of Helmfile uses the same pipeline name <code>.Values</code> as Helm, so in some use-cases <code>.Values</code> of Helmfile and<br />
+Helm can be seen in the same file. To distinguish these two kinds of <code>.Values</code>, Helmfile provides an alias <code>.StateValues</code><br />
+for its <code>.Values</code>.</p>
+<pre><code>app:
+  project: {{.Environmont.Name}}-{{.StateValues.project}} # Same as {{.Environmont.Name}}-{{.Values.project}}
+
+{{`
+extraEnvVars:
+- name: APP_PROJECT
+  value: {{.Values.app.project}}
+`}}
+</code></pre>
+<h2 id="missing-keys-and-default-values">Missing keys and Default values<a class="headerlink" href="#missing-keys-and-default-values" title="Permanent link">&para;</a></h2>
+<p>helmfile tries its best to inform users for noticing potential mistakes.</p>
+<p>One example of how helmfile achieves it is that, <code>helmfile</code> fails when you tried to access missing keys in environment values.</p>
+<p>That is, the following example let <code>helmfile</code> fail when you have no <code>eventApi.replicas</code> defined in environment values.</p>
+<pre><code>{{ .Values.eventApi.replicas | default 1 }}
+</code></pre>
+<p>In case it isn&rsquo;t a mistake and you do want to allow missing keys, use the <code>get</code> template function:</p>
+<pre><code>{{ .Values | get &quot;eventApi.replicas&quot; nil }}
+</code></pre>
+<p>This result in printing <code>&lt;no value</code> in your template, that may or may not result in a failure.</p>
+<p>If you want a kind of default values that is used when a missing key was referenced, use <code>default</code> like:</p>
+<pre><code>{{ .Values | get &quot;eventApi.replicas&quot; 1 }}
+</code></pre>
+<p>Now, you get <code>1</code> when there is no <code>eventApi.replicas</code> defined in environment values.</p>
+<h2 id="release-template-conventional-directory-structure">Release Template / Conventional Directory Structure<a class="headerlink" href="#release-template-conventional-directory-structure" title="Permanent link">&para;</a></h2>
+<p>Introducing helmfile into a large-scale project that involves dozens of releases often results in a lot of repetitions in <code>helmfile.yaml</code> files.</p>
+<p>The example below shows repetitions in <code>namespace</code>, <code>chart</code>, <code>values</code>, and <code>secrets</code>:</p>
+<pre><code class="language-yaml">releases:
+# *snip*
+- name: heapster
+  namespace: kube-system
+  chart: stable/heapster
+  version: 0.3.2
+  values:
+  - &quot;./config/heapster/values.yaml&quot;
+  - &quot;./config/heapster/{{ .Environment.Name }}.yaml&quot;
+  secrets:
+  - &quot;./config/heapster/secrets.yaml&quot;
+  - &quot;./config/heapster/{{ .Environment.Name }}-secrets.yaml&quot;
+
+- name: kubernetes-dashboard
+  namespace: kube-system
+  chart: stable/kubernetes-dashboard
+  version: 0.10.0
+  values:
+  - &quot;./config/kubernetes-dashboard/values.yaml&quot;
+  - &quot;./config/kubernetes-dashboard/{{ .Environment.Name }}.yaml&quot;
+  secrets:
+  - &quot;./config/kubernetes-dashboard/secrets.yaml&quot;
+  - &quot;./config/kubernetes-dashboard/{{ .Environment.Name }}-secrets.yaml&quot;
+</code></pre>
+<p>This is where Helmfile&rsquo;s advanced feature called Release Template comes handy.</p>
+<p>It allows you to abstract away the repetitions in releases into a template, which is then included and executed by using YAML anchor/alias:</p>
+<pre><code class="language-yaml">templates:
+  default: &amp;default
+    chart: stable/{{`{{ .Release.Name }}`}}
+    namespace: kube-system
+    # This prevents helmfile exiting when it encounters a missing file
+    # Valid values are &quot;Error&quot;, &quot;Warn&quot;, &quot;Info&quot;, &quot;Debug&quot;. The default is &quot;Error&quot;
+    # Use &quot;Debug&quot; to make missing files errors invisible at the default log level(--log-level=INFO)
+    missingFileHandler: Warn
+    values:
+    - config/{{`{{ .Release.Name }}`}}/values.yaml
+    - config/{{`{{ .Release.Name }}`}}/{{`{{ .Environment.Name }}`}}.yaml
+    secrets:
+    - config/{{`{{ .Release.Name }}`}}/secrets.yaml
+    - config/{{`{{ .Release.Name }}`}}/{{`{{ .Environment.Name }}`}}-secrets.yaml
+
+releases:
+- name: heapster
+  &lt;&lt;: *default
+- name: kubernetes-dashboard
+  &lt;&lt;: *default
+</code></pre>
+<p>Release Templating supports the following parts of release definition:<br />
+- basic fields: <code>name</code>, <code>namespace</code>, <code>chart</code>, <code>version</code><br />
+- boolean fields: <code>installed</code>, <code>wait</code>, <code>waitForJobs</code>, <code>tillerless</code>, <code>verify</code> by the means of additional text<br />
+  fields designed for templating only: <code>installedTemplate</code>, <code>waitTemplate</code>, <code>tillerlessTemplate</code>, <code>verifyTemplate</code><br />
+<code>yaml
+  # ...
+    installedTemplate: '{{`{{ eq .Release.Namespace "kube-system" }}`}}'
+    waitTemplate: '{{`{{ eq .Release.Labels.tag "safe" | not }}`}}'
+  # ...</code><br />
+- <code>set</code> block values:<br />
+<code>yaml
+  # ...
+    setTemplate:
+    - name: '{{`{{ .Release.Name }}`}}'
+      values: '{{`{{ .Release.Namespace }}`}}'
+  # ...</code><br />
+- <code>values</code> and <code>secrets</code> file paths:<br />
+<code>yaml
+  # ...
+    valuesTemplate:
+    - config/{{`{{ .Release.Name }}`}}/values.yaml
+    secrets:
+    - config/{{`{{ .Release.Name }}`}}/secrets.yaml
+  # ...</code><br />
+- inline <code>values</code> map:<br />
+<code>yaml
+  # ...
+    valuesTemplate:
+    - image:
+        tag: `{{ .Release.Labels.tag }}`
+  # ...</code></p>
+<p>See the <a href="https://github.com/roboll/helmfile/issues/428">issue 428</a> for more context on how this is supposed to work.</p>
+<h2 id="layering-release-values">Layering Release Values<a class="headerlink" href="#layering-release-values" title="Permanent link">&para;</a></h2>
+<p>Please note, that it is not possible to layer <code>values</code> sections. If <code>values</code> is defined in the release and in the release template, only the <code>values</code> defined in the release will be considered. The same applies to <code>secrets</code> and <code>set</code>.</p>
+<h2 id="layering-state-files">Layering State Files<a class="headerlink" href="#layering-state-files" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>See <strong>Layering State Template Files</strong> if you&rsquo;re layering templates.</p>
+</blockquote>
+<p>You may occasionally end up with many helmfiles that shares common parts like which repositories to use, and which release to be bundled by default.</p>
+<p>Use Layering to extract the common parts into a dedicated <em>library helmfile</em>s, so that each helmfile becomes DRY.</p>
+<p>Let&rsquo;s assume that your <code>helmfile.yaml</code> looks like:</p>
+<pre><code class="language-yaml">bases:
+- environments.yaml
+
+releases:
+- name: metricbeat
+  chart: stable/metricbeat
+- name: myapp
+  chart: mychart
+</code></pre>
+<p>Whereas <code>environments.yaml</code> contained well-known environments:</p>
+<pre><code class="language-yaml">environments:
+  development:
+  production:
+</code></pre>
+<p>At run time, <code>bases</code> in your <code>helmfile.yaml</code> are evaluated to produce:</p>
+<pre><code class="language-yaml">---
+# environments.yaml
+environments:
+  development:
+  production:
+---
+# helmfile.yaml
+releases:
+- name: myapp
+  chart: mychart
+- name: metricbeat
+  chart: stable/metricbeat
+</code></pre>
+<p>Finally the resulting YAML documents are merged in the order of occurrence,<br />
+so that your <code>helmfile.yaml</code> becomes:</p>
+<pre><code class="language-yaml">environments:
+  development:
+  production:
+
+releases:
+- name: metricbeat
+  chart: stable/metricbeat
+- name: myapp
+  chart: mychart
+</code></pre>
+<p>Great!</p>
+<p>Now, repeat the above steps for each your <code>helmfile.yaml</code>, so that all your helmfiles becomes DRY.</p>
+<p>Please also see <a href="https://github.com/roboll/helmfile/issues/388#issuecomment-491710348">the discussion in the issue 388</a> for more advanced layering examples.</p>
+<h2 id="merging-arrays-in-layers">Merging Arrays in Layers<a class="headerlink" href="#merging-arrays-in-layers" title="Permanent link">&para;</a></h2>
+<p>Helmfile doesn&rsquo;t merge arrays across layers. That is, the below example doesn&rsquo;t work as you might have expected:</p>
+<pre><code class="language-yaml">releases:
+- name: metricbeat
+  chart: stable/metricbeat
+---
+releases:
+- name: myapp
+  chart: mychart
+</code></pre>
+<p>Helmfile overrides the <code>releases</code> array with the latest layer so the resulting state file will be:</p>
+<pre><code class="language-yaml">releases:
+# metricbeat release disappeared! but that's how helmfile works
+- name: myapp
+  chart: mychart
+</code></pre>
+<p>A work-around is to treat the state file as a go template and use <code>readFile</code> template function to import the common part of your state file as a plain text:</p>
+<p><code>common.yaml</code>:</p>
+<pre><code class="language-yaml">templates:
+  metricbeat: &amp;metricbeat
+    name: metricbeat
+    chart: stable/metricbeat
+</code></pre>
+<p><code>helmfile.yaml</code>:</p>
+<pre><code class="language-yaml">{{ readFile &quot;common.yaml&quot; }}
+
+releases:
+- &lt;&lt;: *metricbeat
+- name: myapp
+  chart: mychart
+</code></pre>
+<h2 id="layering-state-template-files">Layering State Template Files<a class="headerlink" href="#layering-state-template-files" title="Permanent link">&para;</a></h2>
+<p>Do you need to make your state file even more DRY?</p>
+<p>Turned out layering state files wasn&rsquo;t enough for you?</p>
+<p>Helmfile supports an advanced feature that allows you to compose state &ldquo;template&rdquo; files to generate the final state to be processed.</p>
+<p>In the following example <code>helmfile.yaml.gotmpl</code>, each <code>---</code> separated part of the file is a go template.</p>
+<p><code>helmfile.yaml.gotmpl</code>:</p>
+<pre><code class="language-yaml"># Part 1: Reused Enviroment Values
+bases:
+  - myenv.yaml
+---
+# Part 2: Reused Defaults
+bases:
+  - mydefaults.yaml
+---
+# Part 3: Dynamic Releases
+releases:
+  - name: test1
+    chart: mychart-{{ .Values.myname }}
+    values:
+      replicaCount: 1
+      image:
+        repository: &quot;nginx&quot;
+        tag: &quot;latest&quot;
+</code></pre>
+<p>Suppose the <code>myenv.yaml</code> and <code>test.env.yaml</code> loaded in the first part looks like:</p>
+<p><code>myenv.yaml</code>:</p>
+<pre><code class="language-yaml">environments:
+  test:
+    values:
+      - test.env.yaml
+</code></pre>
+<p><code>test.env.yaml</code>:</p>
+<pre><code class="language-yaml">kubeContext: test
+wait: false
+cvOnly: false
+myname: &quot;dog&quot;
+</code></pre>
+<p>Where the gotmpl file loaded in the second part looks like:</p>
+<p><code>mydefaults.yaml.gotmpl</code>:</p>
+<pre><code class="language-yaml">helmDefaults:
+  tillerNamespace: kube-system
+  kubeContext: {{ .Values.kubeContext }}
+  verify: false
+  {{ if .Values.wait }}
+  wait: true
+  {{ else }}
+  wait: false
+  {{ end }}
+  timeout: 600
+  recreatePods: false
+  force: true
+</code></pre>
+<p>Each go template is rendered in the context where <code>.Values</code> is inherited from the previous part.</p>
+<p>So in <code>mydefaults.yaml.gotmpl</code>, both <code>.Values.kubeContext</code> and <code>.Values.wait</code> are valid as they do exist in the environment values inherited from the previous part(=the first part) of your <code>helmfile.yaml.gotmpl</code>, and therefore the template is rendered to:</p>
+<pre><code class="language-yaml">helmDefaults:
+  tillerNamespace: kube-system
+  kubeContext: test
+  verify: false
+  wait: false
+  timeout: 600
+  recreatePods: false
+  force: true
+</code></pre>
+<p>Similarly, the third part of the top-level <code>helmfile.yaml.gotmpl</code>, <code>.Values.myname</code> is valid as it is included in the environment values inherited from the previous parts:</p>
+<pre><code class="language-yaml"># Part 3: Dynamic Releases
+releases:
+  - name: test1
+    chart: mychart-{{ .Values.myname }}
+    values:
+      replicaCount: 1
+      image:
+        repository: &quot;nginx&quot;
+        tag: &quot;latest&quot;
+````
+
+hence rendered to:
+
+```yaml
+# Part 3: Dynamic Releases
+releases:
+  - name: test1
+    chart: mychart-dog
+    values:
+      replicaCount: 1
+      image:
+        repository: &quot;nginx&quot;
+        tag: &quot;latest&quot;
+</code></pre>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 23, 2021</span>
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../PATHS/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Paths Overview
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../advanced-features/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Advanced Features
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+    
+  </body>
+</html>
